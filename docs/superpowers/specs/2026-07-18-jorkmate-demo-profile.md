@@ -35,20 +35,20 @@ at strong companies) → high Nosana match scores → a compelling demo.
 
 ## Field reference
 
-| Field | Value | Used by |
-|---|---|---|
-| Full name | Maya Tan | Profile tab, Workday name fields |
-| Email | maya.tan.dev@gmail.com | Profile tab, Workday contact |
-| Phone | +65 8123 4567 | Workday contact |
-| Location | Singapore | deck filter, Workday address |
-| LinkedIn | linkedin.com/in/mayatan-dev | Workday "LinkedIn URL" |
-| Portfolio | mayatan.dev | Workday "Website" |
-| Work authorization | Singapore Citizen | **Workday screening (critical)** |
-| Requires sponsorship | No | **Workday screening (critical)** |
-| Notice period | 1 month | Workday screening |
-| Expected salary | SGD 120,000–140,000 / yr | Workday screening |
-| Willing to relocate | Open (SG / remote) | Workday screening |
-| EEO fields | Prefer not to disclose | Workday EEO section |
+| Field                | Value                       | Used by                          |
+|----------------------|-----------------------------|----------------------------------|
+| Full name            | Maya Tan                    | Profile tab, Workday name fields |
+| Email                | maya.tan.dev@gmail.com      | Profile tab, Workday contact     |
+| Phone                | +65 8123 4567               | Workday contact                  |
+| Location             | Singapore                   | deck filter, Workday address     |
+| LinkedIn             | linkedin.com/in/mayatan-dev | Workday "LinkedIn URL"           |
+| Portfolio            | mayatan.dev                 | Workday "Website"                |
+| Work authorization   | Singapore Citizen           | **Workday screening (critical)** |
+| Requires sponsorship | No                          | **Workday screening (critical)** |
+| Notice period        | 1 month                     | Workday screening                |
+| Expected salary      | SGD 120,000–140,000 / yr    | Workday screening                |
+| Willing to relocate  | Open (SG / remote)          | Workday screening                |
+| EEO fields           | Prefer not to disclose      | Workday EEO section              |
 
 ## Reusable cover blurb
 
