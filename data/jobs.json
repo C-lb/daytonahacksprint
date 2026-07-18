@@ -2,120 +2,120 @@
   {
     "id": "job-001",
     "company": "NVIDIA",
-    "title": "Senior Software Engineer, AI Infrastructure",
+    "title": "Software Engineer, AI Infrastructure (Early Careers)",
     "location": "Singapore",
     "salary": null,
     "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/R1376700",
-    "industry": "Software & Developer Tools",
+    "industry": "Artificial Intelligence / ML",
     "description": "Build the tooling that trains the models. Design and scale distributed systems for high-throughput AI training pipelines. Own systems handling petabyte-scale workloads across clusters of GPUs.",
     "match": {
-      "score": 65,
-      "blurb": "Your fintech reliability chops and Go-backed distributed systems experience would make you a natural at scaling NVIDIA's petabyte-scale AI t",
+      "score": 75,
+      "blurb": "Your stellar academic foundation and AI-driven software focus make you a prime candidate to build the very infrastructure that powers NVIDIA",
       "via": "fallback"
     }
   },
   {
     "id": "job-002",
     "company": "Stripe",
-    "title": "Senior Full-Stack Engineer, Payments Platform",
+    "title": "Full-Stack Engineer, Payments Platform (Early Careers)",
     "location": "Singapore",
     "salary": null,
     "url": "https://stripe.wd5.myworkdayjobs.com/ExternalCareerSite/job/FE-PAYMENTS-004",
-    "industry": "Fintech",
+    "industry": "Quantitative Finance",
     "description": "Shape the next generation of Stripe's payment processing infrastructure. Work across backend (Go, TypeScript) and frontend (React) to build reliable, sub-millisecond payment flows used by millions.",
     "match": {
-      "score": 92,
-      "blurb": "With your knack for slashing payment latency and shipping high-throughput refund services, you'd make Stripe's payment flows sing almost as ",
+      "score": 72,
+      "blurb": "Your stellar academic record and AI focus suggest you'd bring fresh, sharp thinking to building sub-millisecond payment flows.",
       "via": "fallback"
     }
   },
   {
     "id": "job-003",
     "company": "Salesforce",
-    "title": "Senior Software Engineer, Developer Platform",
+    "title": "Software Engineer, Developer Platform (Early Careers)",
     "location": "Singapore",
     "salary": null,
     "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/R2024-21047",
     "industry": "Software & Developer Tools",
     "description": "Lead platform architecture for developer tooling at scale. Build SDKs, APIs, and observability systems that thousands of developers depend on. Partner with product to ship from concept to production.",
     "match": {
-      "score": 87,
-      "blurb": "Your track record of shipping resilient, developer-focused systems and leading reliability improvements makes you the perfect match to archi",
+      "score": 65,
+      "blurb": "Your stellar academic record and AI-driven software passion hint at the raw talent to build the scalable developer tooling Salesforce needs,",
       "via": "fallback"
     }
   },
   {
     "id": "job-004",
     "company": "Adobe",
-    "title": "Senior Full-Stack Engineer, E-commerce Platform",
+    "title": "Full-Stack Engineer, E-commerce Platform (Early Careers)",
     "location": "Singapore",
     "salary": null,
     "url": "https://adobe.wd5.myworkdayjobs.com/external_experienced/job/PSDC-SG-24-001",
-    "industry": "E-commerce",
+    "industry": "Software & Developer Tools",
     "description": "Build scalable e-commerce infrastructure handling millions of transactions daily. Optimize checkout flows, payment processing, and order fulfillment systems. Mentor engineers and own on-call reliability.",
     "match": {
-      "score": 95,
-      "blurb": "Your fintech checkout expertise and payment reliability wins at Grab are practically a love letter to Adobe's e-commerce platform.",
+      "score": 55,
+      "blurb": "Your stellar academic record and coding skills are a solid foundation, but we need to see your e-commerce and full-stack experience before I",
       "via": "fallback"
     }
   },
   {
     "id": "job-005",
     "company": "Grab",
-    "title": "Senior Software Engineer, Payment Systems",
+    "title": "Software Engineer, Payment Systems (Early Careers)",
     "location": "Singapore",
     "salary": null,
     "url": "https://grab.wd5.myworkdayjobs.com/GrabCareerSite/job/PAY-SG-2024-156",
-    "industry": "Fintech",
+    "industry": "Quantitative Finance",
     "description": "Scale GrabPay to serve billions of transactions across Southeast Asia. Own end-to-end payment pipeline, fraud detection, and settlement systems. Drive innovation in mobile-first fintech infrastructure.",
     "match": {
-      "score": 95,
-      "blurb": "You've already led checkout reliability at GrabPay, so this role is practically asking you to come home and turn up the volume on your impac",
+      "score": 75,
+      "blurb": "Your AI-driven software expertise and stellar academic record could electrify GrabPay's payment pipeline, but I'm eager to learn how your sk",
       "via": "fallback"
     }
   },
   {
     "id": "job-006",
     "company": "Shopify",
-    "title": "Senior Software Engineer, Shop Apps Platform",
+    "title": "Software Engineer, Shop Apps Platform (Early Careers)",
     "location": "Singapore",
     "salary": null,
     "url": "https://shopify.wd5.myworkdayjobs.com/ExternalCareerSite/job/SHOP-PS-2024-089",
-    "industry": "E-commerce",
+    "industry": "Software & Developer Tools",
     "description": "Build the platform that powers commerce apps for millions of merchants globally. Own APIs, SDKs, and real-time systems for payments, fulfillment, and inventory. Work with React and Node at scale.",
     "match": {
-      "score": 88,
-      "blurb": "Your fintech and developer-tools chops at Grab and Shopee are a perfect match for building Shopify's merchant platform at scale, and I'd lov",
+      "score": 75,
+      "blurb": "Your stellar academic record and AI-driven software focus suggest you'll bring sharp logic and innovation to Shopify's merchant platform, th",
       "via": "fallback"
     }
   },
   {
     "id": "job-007",
     "company": "Figma",
-    "title": "Senior Software Engineer, Infrastructure",
+    "title": "Software Engineer, Infrastructure (Early Careers)",
     "location": "Singapore",
     "salary": null,
     "url": "https://figma.wd5.myworkdayjobs.com/ExternalCareerSite/job/FIG-ENG-2024-134",
     "industry": "Software & Developer Tools",
     "description": "Architect infrastructure for a design platform used by 10M+ creators. Optimize real-time collaboration, WebSocket scalability, and render performance. Own systems supporting live multiplayer editing.",
     "match": {
-      "score": 82,
-      "blurb": "Your knack for slashing payment latency and scaling real-time systems at Grab makes you the perfect match to architect Figma's multiplayer i",
+      "score": 72,
+      "blurb": "Your stellar academic record and AI-driven software passion could architect the real-time magic behind Figma's collaborative canvas, but we ",
       "via": "fallback"
     }
   },
   {
     "id": "job-008",
     "company": "Square",
-    "title": "Senior Full-Stack Engineer, Cash App Commerce",
+    "title": "Full-Stack Engineer, Cash App Commerce (Early Careers)",
     "location": "Singapore",
     "salary": null,
     "url": "https://square.wd5.myworkdayjobs.com/ExternalCareerSite/job/SQ-COMERCE-2024-087",
-    "industry": "Fintech",
+    "industry": "Quantitative Finance",
     "description": "Build trust and reliability into Cash App's commerce and banking features. Ship payments, money transfers, and financial services to millions of users. Lead technical roadmap for core platform systems.",
     "match": {
-      "score": 92,
-      "blurb": "With your fintech chops slashing payment latency and shipping high-volume refunds, you're practically the cash flow whisperer Cash App's com",
+      "score": 72,
+      "blurb": "Your stellar academic record and AI-building ambition are a promising foundation for crafting the reliable, high-impact commerce systems tha",
       "via": "fallback"
     }
   }
