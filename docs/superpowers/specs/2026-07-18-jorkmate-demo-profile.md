@@ -1,159 +1,164 @@
 # jorkmate — hardcoded demo user profile
 
-**Date:** 2026-07-18 · **Piece:** 3 of 3 (User Profile) · **Consumes:** nothing · **Consumed by:** Deck/Highlights match rendering (frontend), Profile tab (frontend), apply pipeline (backend Workday autofill)
+**Date:** 2026-07-18 · **Piece:** 3 of 3 (User Profile) · **Consumed by:** Deck/Highlights match rendering (frontend), Profile tab (frontend), apply pipeline (backend autofill)
 
-This is the **single source of truth** for the seeded demo candidate. It ships in the repo so
-the demo boots straight past onboarding with a profile already "Kimi-parsed" and loaded.
-The JSON block at the bottom is lifted verbatim into `data/profile.json`.
+Single source of truth for the seeded demo candidate. Ships in the repo so the demo boots
+straight past onboarding with a profile already "Kimi-parsed" and loaded. The JSON block at the
+bottom is lifted verbatim into `data/profile.json`.
+
+> **Status:** core identity locked (below); background fields marked **`TBD → interview`** are
+> pending the interview at the end of this doc. Fill them from the user's answers next.
 
 ## Why two layers
 
-The profile carries two kinds of data, because two consumers need different things:
-
-1. **Résumé layer** — `summary`, `work_history[]`, `education[]`, `skills` — this is what Kimi
-   produces from the uploaded resume PDF, and what the Profile tab renders.
-2. **Application-answer layer** — `application_answers` — the screening/eligibility fields a
-   Workday form actually asks (work authorization, sponsorship, notice period, expected
-   salary, EEO). The apply agent maps profile → form fields including these. Without this
-   layer the apply pipeline stalls on the first screening question.
-
-Both are honest-but-favorable per the design spec.
+1. **Résumé layer** — `summary`, `education[]`, `work_history[]`, `projects[]`, `skills` —
+   what Kimi produces from the resume PDF, and what the Profile tab renders.
+2. **Application-answer layer** — `application_answers` — the screening/eligibility fields an
+   ATS form actually asks (work authorization, sponsorship, EEO/demographics, availability).
+   The apply agent maps profile → form fields. Without it the pipeline stalls on the first
+   screening question. (See the field discovery in `2026-07-18-jorkmate-apply-fields.md`.)
 
 ## The candidate
 
-**Maya Tan** — Singapore-based full-stack software engineer, ~5 years, product-focused
-(fintech + developer tools). Strong TypeScript/React + Node, ships prototype → production,
-has led a small team. Singapore citizen → **no visa sponsorship needed** (removes the most
-common Workday auto-reject and keeps the rehearsed apply flow clean).
+**Nadine Park** — Singapore-based NUS Computer Science undergraduate (Class of 2027),
+First Class Honours track, **4.99 / 5.00 GPA**. Singapore citizen → **no visa sponsorship
+needed**. Now a clean fit for real **internship** postings (e.g., the Citadel *International
+Equities – Intern (Asia)* form scanned in piece 2): student, GPA, graduation-date, and
+availability fields all line up.
 
-Chosen so she is a strong match for the curated Workday deck (senior SWE / product-eng roles
-at strong companies) → high Nosana match scores → a compelling demo.
+Email handle `nadine.aibuilder@gmail.com` suggests an AI focus — **confirm specialization +
+flagship projects in the interview.**
 
-### Onboarding industry picks (drives deck filter)
+### Locked facts (from user)
 
-`Software & Developer Tools` · `Fintech` · `E-commerce`
+| Field | Value |
+|---|---|
+| Full name | Nadine Park |
+| Email | nadine.aibuilder@gmail.com |
+| Phone | +65 8800 1983 |
+| School | National University of Singapore |
+| Programme | Computer Science (Bachelor of Computing, Honours) |
+| Duration | Aug 2023 – 31 May 2027 (expected) |
+| GPA | 4.99 / 5.00 — First Class Honours |
+| Spoken languages | English, Mandarin, Korean |
+| Programming languages | Python, C++, JavaScript |
+| Citizenship | Singapore Citizen |
+| Nationality | Singaporean |
+| Ethnicity | Korean |
+| Requires sponsorship | No |
 
-## Field reference
+### Onboarding industry picks (drives deck filter) — DRAFT, confirm in interview
 
-| Field                | Value                       | Used by                          |
-|----------------------|-----------------------------|----------------------------------|
-| Full name            | Maya Tan                    | Profile tab, Workday name fields |
-| Email                | maya.tan.dev@gmail.com      | Profile tab, Workday contact     |
-| Phone                | +65 8123 4567               | Workday contact                  |
-| Location             | Singapore                   | deck filter, Workday address     |
-| LinkedIn             | linkedin.com/in/mayatan-dev | Workday "LinkedIn URL"           |
-| Portfolio            | mayatan.dev                 | Workday "Website"                |
-| Work authorization   | Singapore Citizen           | **Workday screening (critical)** |
-| Requires sponsorship | No                          | **Workday screening (critical)** |
-| Notice period        | 1 month                     | Workday screening                |
-| Expected salary      | SGD 120,000–140,000 / yr    | Workday screening                |
-| Willing to relocate  | Open (SG / remote)          | Workday screening                |
-| EEO fields           | Prefer not to disclose      | Workday EEO section              |
+`Software & Developer Tools` · `Artificial Intelligence / ML` · `Quantitative Finance`
 
-## Reusable cover blurb
+## What else to add (recommended fields)
 
-> Full-stack engineer with 5 years shipping product-facing systems in fintech and developer
-> tools. I move fast from prototype to production, care about reliability and DX, and have led
-> a small team through it. Excited to bring that to your team.
+Grouped by how much they help the demo / apply flow:
+
+**High value (ATS forms ask these):**
+- Online links — **LinkedIn, GitHub, portfolio/website** (Citadel form has an "optional links" field)
+- **Internship / work experience** history (even one prior internship)
+- **Availability window** for the internship (which months, e.g., Summer 2026)
+- **Gender** for EEO sections (or "prefer not to disclose")
+- Residential address in Singapore (some ATS require; can keep generic)
+
+**Strong for match score + résumé:**
+- **Flagship projects** (esp. AI — matches the handle)
+- **Hackathon / competition** results (this is literally a hackathon — a win reads great)
+- **Awards / scholarships** (Dean's List, merit/ASEAN scholarship, olympiads)
+- **Frameworks & tools** beyond languages (React, PyTorch, TensorFlow, Node, cloud, etc.)
+- **Relevant coursework / specialization track** (AI systems, ML, algorithms)
+- **Extracurriculars / leadership** (NUS Hackers, teaching assistant, clubs)
+
+**Optional / nice-to-have:**
+- Certifications, publications/research, references, expected stipend, date of birth.
 
 ## `data/profile.json` (source of truth)
 
 ```json
 {
-  "id": "demo-maya-tan",
+  "id": "demo-nadine-park",
   "seeded": true,
   "kimi_parsed": true,
   "basics": {
-    "full_name": "Maya Tan",
-    "first_name": "Maya",
-    "last_name": "Tan",
-    "email": "maya.tan.dev@gmail.com",
-    "phone": "+65 8123 4567",
+    "full_name": "Nadine Park",
+    "first_name": "Nadine",
+    "last_name": "Park",
+    "preferred_name": "Nadine",
+    "email": "nadine.aibuilder@gmail.com",
+    "phone": "+65 8800 1983",
     "location": "Singapore",
     "links": {
-      "linkedin": "https://linkedin.com/in/mayatan-dev",
-      "github": "https://github.com/mayatan",
-      "portfolio": "https://mayatan.dev"
+      "linkedin": "TBD → interview",
+      "github": "TBD → interview",
+      "portfolio": "TBD → interview"
     }
   },
-  "industries": ["Software & Developer Tools", "Fintech", "E-commerce"],
-  "summary": "Full-stack software engineer with 5 years building product-facing systems in fintech and developer tools. Ships from prototype to production in TypeScript/React and Node, with a bias for reliability and developer experience. Led a 4-engineer team on checkout reliability.",
-  "work_history": [
-    {
-      "company": "Grab",
-      "title": "Senior Software Engineer",
-      "location": "Singapore",
-      "start": "2023-01",
-      "end": "present",
-      "highlights": [
-        "Led checkout reliability workstream for GrabPay, cutting p99 payment latency 38%.",
-        "Mentored 4 engineers; owned on-call playbooks that halved payment incident MTTR.",
-        "Shipped an idempotent refunds service (Go + PostgreSQL) handling 2M+ txns/day."
-      ]
-    },
-    {
-      "company": "Shopee",
-      "title": "Software Engineer",
-      "location": "Singapore",
-      "start": "2020-06",
-      "end": "2022-12",
-      "highlights": [
-        "Built seller-analytics dashboards (React, Node, ClickHouse) used by 300k+ sellers.",
-        "Cut dashboard load time from 6s to under 1s with query + caching redesign.",
-        "Drove adoption of TypeScript and CI test gates across the seller-tools squad."
-      ]
-    },
-    {
-      "company": "GovTech Singapore",
-      "title": "Software Engineer Intern",
-      "location": "Singapore",
-      "start": "2019-05",
-      "end": "2019-11",
-      "highlights": [
-        "Prototyped an accessibility linter adopted into an internal design system."
-      ]
-    }
-  ],
+  "demographics": {
+    "citizenship": "Singapore Citizen",
+    "nationality": "Singaporean",
+    "ethnicity": "Korean",
+    "gender": "TBD → interview",
+    "date_of_birth": "TBD → interview (only if a form requires it)"
+  },
+  "languages": {
+    "spoken": ["English", "Mandarin", "Korean"],
+    "programming": ["Python", "C++", "JavaScript"]
+  },
+  "industries": ["Software & Developer Tools", "Artificial Intelligence / ML", "Quantitative Finance"],
+  "summary": "DRAFT → interview: NUS Computer Science undergraduate (First Class Honours, 4.99/5.00 GPA), Class of 2027, building AI-driven software. Confirm focus, flagship work, and voice in the interview.",
   "education": [
     {
       "school": "National University of Singapore",
-      "degree": "B.Comp (Hons), Computer Science",
-      "start": "2015-08",
-      "end": "2019-05",
-      "notes": "First Class Honours"
+      "degree": "Bachelor of Computing (Honours), Computer Science",
+      "start": "2023-08",
+      "end": "2027-05-31",
+      "expected_graduation": "2027-05-31",
+      "gpa": "4.99",
+      "gpa_scale": "5.0",
+      "notes": "First Class Honours (on track)"
     }
   ],
   "skills": {
-    "languages": ["TypeScript", "JavaScript", "Python", "Go", "SQL"],
-    "frontend": ["React", "Next.js", "Tailwind CSS"],
-    "backend": ["Node.js", "Express", "PostgreSQL", "Redis"],
-    "cloud": ["AWS", "Docker", "Kubernetes"],
-    "practices": ["CI/CD", "TDD", "Observability"]
+    "programming": ["Python", "C++", "JavaScript"],
+    "frameworks_tools": ["TBD → interview"],
+    "focus_areas": ["TBD → interview (AI/ML? confirm)"]
   },
+  "work_history": [],
+  "projects": [],
+  "awards": [],
+  "extracurriculars": [],
   "application_answers": {
     "work_authorization": "Authorized to work in Singapore (Singapore Citizen)",
     "requires_sponsorship": false,
-    "willing_to_relocate": "Open to relocation (Singapore or remote)",
-    "notice_period": "1 month",
-    "earliest_start_date": "1 month from offer",
-    "expected_salary": "SGD 120,000–140,000 per year",
-    "salary_negotiable": true,
-    "how_did_you_hear": "Company website",
-    "gender": "Prefer not to disclose",
+    "nationality": "Singaporean",
+    "ethnicity": "Korean",
+    "gender": "TBD → interview",
     "veteran_status": "Prefer not to disclose",
     "disability_status": "Prefer not to disclose",
-    "cover_blurb": "Full-stack engineer with 5 years shipping product-facing systems in fintech and developer tools. I move fast from prototype to production, care about reliability and DX, and have led a small team through it. Excited to bring that to your team."
+    "internship_availability": "TBD → interview",
+    "earliest_start_date": "TBD → interview",
+    "expected_salary": "TBD → interview (intern stipend; often left blank)",
+    "how_did_you_hear": "TBD → interview",
+    "cover_blurb": "DRAFT → interview"
   },
-  "resume_file": "data/resume-maya-tan.pdf"
+  "resume_file": "data/resume-nadine-park.pdf"
 }
 ```
 
+## Pending interview (fill these next)
+
+`links` · `demographics.gender` · `skills.frameworks_tools` · `skills.focus_areas` ·
+`summary` · `work_history[]` · `projects[]` · `awards[]` · `extracurriculars[]` ·
+`application_answers.{gender, internship_availability, earliest_start_date, expected_salary, how_did_you_hear, cover_blurb}`
+
 ## Notes for downstream pieces
 
-- `resume_file` points at a PDF the apply agent uploads to Workday. Not yet created — a
-  1-page PDF matching this profile is a small follow-up (or the apply flow can skip upload on
-  tenants that allow it).
-- `requires_sponsorship: false` is deliberate — the rehearsed apply target must not gate on
-  sponsorship, or the demo dies on a screening dropdown.
-- Field **names** here are the contract. Frontend renders `basics`/`work_history`/etc.;
-  backend reads `application_answers`. Change a key → update both sides.
+- **Apply map needs re-sync:** `2026-07-18-jorkmate-apply-fields.md` still maps the old
+  `demo-maya-tan` (senior eng) → Citadel. Re-point it to `demo-nadine-park` after the
+  interview: education becomes NUS 2023–2027, GPA 4.99/5.0, student intern answers. Nadine
+  fits the intern form better than Maya did.
+- `resume_file` → `data/resume-nadine-park.pdf` still needs generating.
+- `requires_sponsorship: false` is deliberate — keeps the rehearsed apply off the top
+  auto-reject.
+- Field **names** here are the contract. Change a key → update frontend + backend.
