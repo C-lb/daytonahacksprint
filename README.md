@@ -1,4 +1,4 @@
-# daytonahacksprint
+# jorkmate - daytonahacksprint
 
 Team project for the **Daytona HackSprint Singapore 2026** (AI Builders x Daytona, NUS, 18 Jul 2026).
 
