@@ -8,9 +8,11 @@
     "smoke": "node src/smoke.mjs",
     "ask": "node src/ask.mjs",
     "dev": "node --watch src/agent.mjs",
-    "start": "node src/agent.mjs"
+    "start": "node src/agent.mjs",
+    "serve": "node --watch src/server.mjs"
   },
   "dependencies": {
-    "@daytona/sdk": "^0.199.0"
+    "@daytona/sdk": "^0.199.0",
+    "express": "^5.2.1"
   }
 }
