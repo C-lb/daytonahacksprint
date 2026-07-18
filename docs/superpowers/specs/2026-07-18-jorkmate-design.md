@@ -16,6 +16,7 @@ and industry picks.
 | Profile scope | **Resume PDF + basics + industry picks**; Kimi parses resume into structured profile |
 | Matching | **Per-card match score + blurb from a Nosana-deployed open model** |
 | Apply UX | Swipe continues instantly, toast "agent applying…"; **live agent bottom sheet is stretch scope** — core flow is background apply → status in Applications tab |
+| Demo data | **Hardcoded/seeded**: demo user profile, curated job cards, and a fixed list of Workday career sites ship in the repo — the demo never depends on live onboarding or scraping succeeding |
 
 ## Sponsor mapping (judging: coordination of Daytona + Kimi + Nosana)
 
@@ -60,6 +61,17 @@ insets (`env(safe-area-inset-*)`) for dynamic island / home bar.
 
 Storage: three JSON files, no DB — `data/profile.json`, `data/jobs.json`,
 `data/applications.json`.
+
+**Seed data (committed to the repo, chic and demo-ready):**
+- `data/profile.json` — a polished fictional demo candidate (structured as if
+  Kimi-parsed: basics, work history, education, skills, summary). Onboarding still works
+  end-to-end but the demo boots straight past it with this profile loaded.
+- `data/jobs.json` — curated deck of real Workday postings (scraped once via Oxylabs
+  during dev, then frozen): strong companies, clean titles/salaries, pre-computed Nosana
+  match scores + blurbs. Ordered for the demo — the rehearsed apply target sits near the
+  top.
+- `data/sites.json` — the fixed list of Workday career-site URLs (3–5 tenants) that
+  `scrape.mjs` and the on-stage refresh button target. No free-form site discovery.
 
 ## Screens
 
@@ -123,7 +135,7 @@ possible in a day.
 
 ## Demo script (~110s)
 
-1. (10s) Profile exists; "Kimi read my resume."
+1. (10s) App boots with the seeded demo profile; "Kimi read my resume."
 2. (15s) Tap refresh → live Oxylabs scrape lands new cards.
 3. (20s) Swipe deck; show Highlights carousel; call out Nosana match scores.
 4. (45s) Right-swipe rehearsed job → Applications tab shows `applying` → step screenshots
