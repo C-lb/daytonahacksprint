@@ -8,7 +8,6 @@ import { Onboarding } from './pages/Onboarding'
 import { Discover } from './pages/Discover'
 import { Highlights } from './pages/Highlights'
 import { Applications } from './pages/Applications'
-import { Activity } from './pages/Activity'
 import { ProfilePage } from './pages/ProfilePage'
 
 /** Desktop: phone-width shell. Mobile: full viewport. */
@@ -75,7 +74,7 @@ export default function App() {
                 <Route path="/app/discover" element={<Discover />} />
                 <Route path="/app/highlights" element={<Highlights />} />
                 <Route path="/app/applications" element={<Applications />} />
-                <Route path="/app/activity" element={<Activity />} />
+                <Route path="/app/activity" element={<Navigate to="/app/applications" replace />} />
                 <Route path="/app/profile" element={<ProfilePage />} />
               </Route>
               <Route path="*" element={<Navigate to="/" replace />} />

@@ -95,6 +95,11 @@ export interface UserProfile {
 
 export type Sector = 'tech' | 'finance'
 
+/**
+ * Rich fields are optional: seeded demo jobs fill everything; live jobs from the
+ * team server (`GET /api/deck`, Workday via Oxylabs) carry only the scraped
+ * contract fields plus an optional Nosana match. UI renders what exists.
+ */
 export interface Job {
   id: string
   company: string
@@ -103,29 +108,45 @@ export interface Job {
   country: string
   categories: string[]
   sector: Sector
-  workMode: WorkMode
-  employmentType: EmploymentType
-  seniority: string
-  compMin: number
-  compMax: number
-  compPeriod: 'month' | 'year'
-  currency: string
+  workMode?: WorkMode
+  employmentType?: EmploymentType
+  seniority?: string
+  compMin?: number
+  compMax?: number
+  compPeriod?: 'month' | 'year'
+  currency?: string
   compNote?: string
+  /** live jobs: raw scraped salary string (or absent) */
+  salaryText?: string
   summary: string
-  companyDescription: string
-  responsibilities: string[]
-  requirements: string[]
-  skills: string[]
-  benefits: string[]
-  sponsorship: 'Sponsorship available' | 'No sponsorship' | 'Case-by-case sponsorship'
-  applicants: number
-  popularity: number
-  postedDaysAgo: number
-  closingInDays: number
-  rating: number
-  reviewCount: number
-  reviewExcerpt: string
+  companyDescription?: string
+  responsibilities?: string[]
+  requirements?: string[]
+  skills?: string[]
+  benefits?: string[]
+  sponsorship?: 'Sponsorship available' | 'No sponsorship' | 'Case-by-case sponsorship'
+  applicants?: number
+  popularity?: number
+  postedDaysAgo?: number
+  closingInDays?: number
+  rating?: number
+  reviewCount?: number
+  reviewExcerpt?: string
+  /** live jobs: posting URL + server-computed Nosana match */
+  url?: string
+  match?: { score: number; blurb: string } | null
+  source?: 'seeded' | 'live'
   brand: { initials: string; from: string; to: string; pattern: 'dots' | 'waves' | 'grid' | 'rings' | 'diagonal' }
+}
+
+/** Application row as served by the team server (`GET /api/applications`). */
+export interface LiveApplication {
+  id: string
+  jobId: string
+  status: 'queued' | 'applying' | 'submitted' | 'failed' | 'action-required'
+  steps: { t: number; message: string }[]
+  screenshot: string | null
+  createdAt: number
 }
 
 export type AgentStatus = 'queued' | 'running' | 'action-required' | 'submitted' | 'failed'

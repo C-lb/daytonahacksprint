@@ -36,13 +36,17 @@ function HighlightRow({
           <p className="mt-0.5 truncate text-xs font-semibold text-charcoal">{formatComp(job)}</p>
           <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[11px] text-charcoal-soft">
             <span className="font-bold text-coral">{match}% match</span>
-            <span className="flex items-center gap-0.5">
-              <TrendingUp size={11} aria-hidden="true" /> {job.popularity}
-            </span>
-            <span className="flex items-center gap-0.5">
-              <Users size={11} aria-hidden="true" /> {job.applicants}
-            </span>
-            {job.closingInDays <= 10 && (
+            {job.popularity !== undefined && (
+              <span className="flex items-center gap-0.5">
+                <TrendingUp size={11} aria-hidden="true" /> {job.popularity}
+              </span>
+            )}
+            {job.applicants !== undefined && (
+              <span className="flex items-center gap-0.5">
+                <Users size={11} aria-hidden="true" /> {job.applicants}
+              </span>
+            )}
+            {job.closingInDays !== undefined && job.closingInDays <= 10 && (
               <span className="flex items-center gap-0.5 font-semibold text-coral-deep">
                 <Clock3 size={11} aria-hidden="true" /> {job.closingInDays}d left
               </span>
@@ -103,15 +107,24 @@ function Section({
 }
 
 export function Highlights() {
-  const { state, dispatch, showToast } = useApp()
+  const { state, dispatch, showToast, live } = useApp()
   const navigate = useNavigate()
   const appliedIds = useMemo(() => new Set(state.applications.map((a) => a.jobId)), [state.applications])
 
-  const byPopularity = (list: Job[]) => [...list].sort((a, b) => b.popularity - a.popularity)
-  const tech = byPopularity(JOBS.filter((j) => j.sector === 'tech')).slice(0, 4)
-  const finance = byPopularity(JOBS.filter((j) => j.sector === 'finance')).slice(0, 4)
-  const mostApplied = [...JOBS].sort((a, b) => b.applicants - a.applicants).slice(0, 4)
-  const closingSoon = [...JOBS].sort((a, b) => a.closingInDays - b.closingInDays).slice(0, 4)
+  // live mode ranks by Nosana match score; seeded mode by authored popularity
+  const source = live.enabled && live.jobs.length ? live.jobs : JOBS
+  const pop = (j: Job) => j.popularity ?? j.match?.score ?? 0
+  const byPopularity = (list: Job[]) => [...list].sort((a, b) => pop(b) - pop(a))
+  const tech = byPopularity(source.filter((j) => j.sector === 'tech')).slice(0, 4)
+  const finance = byPopularity(source.filter((j) => j.sector === 'finance')).slice(0, 4)
+  const mostApplied = source
+    .filter((j) => j.applicants !== undefined)
+    .sort((a, b) => b.applicants! - a.applicants!)
+    .slice(0, 4)
+  const closingSoon = source
+    .filter((j) => j.closingInDays !== undefined)
+    .sort((a, b) => a.closingInDays! - b.closingInDays!)
+    .slice(0, 4)
 
   function openInDiscover(jobId: string) {
     dispatch({ type: 'BOOST_JOB', jobId })

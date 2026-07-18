@@ -1,12 +1,20 @@
 # Jorkmate
 
 **Meet your next move.** A Hinge-inspired job matchmaker: complete one onboarding, then swipe
-through roles. Swipe right and a simulated AI application agent assembles and "submits" the
-application in the background while you keep browsing.
+through roles. Swipe right and an AI application agent assembles and submits the application
+in the background while you keep browsing.
 
-Frontend-only competition prototype. **Everything is simulated** — all ten job listings are
-fictional, all companies are invented, and every submission ends at
-**"Submitted · Demo mode"**. No backend, no database, no API keys, no scraping, no LLM calls.
+This React app is **the team frontend** for the jorkmate stack (supersedes plan Task 7's
+vanilla PWA). It runs in two modes:
+
+- **Live mode** — when the team server (`src/server.mjs`, port 3000) is up, the deck comes
+  from `GET /api/deck` (real Workday listings via Oxylabs, Nosana match scores + blurbs),
+  right-swipes go to `POST /api/swipe` (Daytona-sandboxed Playwright apply pipeline), résumé
+  upload is parsed by Kimi via `POST /api/profile/resume`, and Applications polls
+  `GET /api/applications` for real pipeline steps + screenshots.
+- **Standalone demo mode** — no server: ten fictional listings, an in-browser agent
+  simulator, and submissions that end at **"Submitted · Demo mode"**. The demo never
+  depends on live pieces succeeding.
 
 ## Stack
 
@@ -23,8 +31,8 @@ fictional, all companies are invented, and every submission ends at
 
 ```bash
 npm install
-npm run dev      # development server
-npm run build    # production build (tsc + vite)
+npm run dev      # development server (proxies /api → localhost:3000)
+npm run build    # production build → repo-root web/ (served by src/server.mjs)
 npm test         # vitest suite
 ```
 
@@ -50,19 +58,26 @@ welcome screen. (Or clear site data in devtools.)
 
 ## 60-second presentation flow
 
-1. Open Jorkmate → **Try a demo profile** → select **Ari Tan**.
+1. Open Jorkmate → **Try a demo profile** → select **Maya Tan** (the canonical demo
+   candidate from `docs/superpowers/specs/2026-07-18-jorkmate-demo-profile.md`).
 2. Scroll one job card to show the full listing lives on the card.
 3. Swipe right on a suitable role → **"Application agent spawned"** toast.
 4. Keep swiping while the agent works in the background.
-5. Open **Activity** → watch the ten-stage timeline progress live.
-6. (Optional) **Fast-forward demo** to complete instantly.
-7. Open **Applications** → expand the card → show the generated package.
-8. Point at **Submitted · Demo mode**.
-9. Open **Highlights** → trending tech and finance roles, "View" boosts a job to the top of
-   the deck.
+5. Open **Applications** → watch the timeline progress live (real Daytona pipeline steps in
+   live mode, the ten-stage simulator standalone).
+6. (Optional standalone) **Fast-forward demo** to complete instantly.
+7. Expand the card → show the generated package / pipeline steps + screenshot.
+8. Point at **Submitted · Live** (or **Submitted · Demo mode** standalone).
+9. Open **Highlights** → top roles ranked by match, "View" boosts a job to the top of the
+   deck.
 
 ## Limitations
 
-- Demo data only: ten seeded jobs, three seeded personas.
-- Résumé upload stores filename/size only — files are never read.
-- "Submissions" never leave the browser.
+- Standalone mode: ten seeded fictional jobs, three seeded personas, submissions never
+  leave the browser.
+- Résumé upload stores filename/size only; in live mode the file text is sent to the team
+  server for Kimi parsing (PDF text extraction is server-side work — plain-text résumés
+  parse best from the browser).
+- Live mode trusts the server contract in `docs/superpowers/plans/2026-07-18-jorkmate.md`;
+  the sensitive-answer safeguard applies to the in-browser simulator only — the live
+  pipeline reads `application_answers` from `data/profile.json` server-side.

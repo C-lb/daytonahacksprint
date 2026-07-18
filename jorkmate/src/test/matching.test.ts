@@ -3,7 +3,7 @@ import { matchScore } from '../utils/matching'
 import { JOBS, getJob } from '../data/jobs'
 import { PERSONAS } from '../data/personas'
 
-const ari = PERSONAS[0].profile
+const ari = PERSONAS.find((p) => p.id === 'persona-ari')!.profile
 
 describe('matchScore', () => {
   it('is deterministic for the same profile and job', () => {

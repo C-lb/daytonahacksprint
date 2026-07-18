@@ -12,7 +12,7 @@ import { getJob } from '../data/jobs'
 import { PERSONAS, emptyProfile } from '../data/personas'
 import type { Application } from '../types'
 
-const ari = PERSONAS[0].profile
+const ari = PERSONAS.find((p) => p.id === 'persona-ari')!.profile
 const boogle = getJob('job-boogle')!
 
 function makeApp(startedAt: number, extraAnswers: Record<string, string> = {}): Application {

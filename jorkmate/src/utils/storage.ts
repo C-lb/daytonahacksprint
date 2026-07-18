@@ -7,6 +7,7 @@ export const KEYS = {
   skippedJobs: 'jorkmate:v1:skippedJobs',
   settings: 'jorkmate:v1:settings',
   onboardingDraft: 'jorkmate:v1:onboardingDraft',
+  liveJobIndex: 'jorkmate:v1:liveJobIndex',
 } as const
 
 export function load<T>(key: string, fallback: T): T {

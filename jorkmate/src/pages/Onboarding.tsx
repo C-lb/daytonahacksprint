@@ -6,6 +6,7 @@ import { useApp } from '../state/AppContext'
 import { emptyProfile } from '../data/personas'
 import type { Certification, Education, Experience, UserProfile, WorkMode, EmploymentType } from '../types'
 import { KEYS, load, remove, save } from '../utils/storage'
+import { flattenSkills, parseResume, type ParsedResume } from '../services/api'
 import { ChipGroup, Field, TagInput, TextArea, TextInput, Toggle, TriStateSelect, inputCls } from '../components/ui'
 
 const INDUSTRIES = [
@@ -38,13 +39,20 @@ const STEP_TITLES = [
 
 const uid = () => Math.random().toString(36).slice(2, 9)
 
+const MONTHS = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+/** '2023-01' → { month: 'Jan', year: '2023' } */
+function splitYm(ym: string | undefined): { month: string; year: string } {
+  const m = /^(\d{4})(?:-(\d{2}))?/.exec(ym ?? '')
+  return m ? { month: MONTHS[Number(m[2] ?? 0)] ?? '', year: m[1] } : { month: '', year: '' }
+}
+
 interface Draft {
   step: number
   profile: UserProfile
 }
 
 export function Onboarding() {
-  const { state, dispatch, showToast } = useApp()
+  const { state, dispatch, showToast, live } = useApp()
   const navigate = useNavigate()
   const [params] = useSearchParams()
   const editing = params.get('edit') === '1' && !!state.profile
@@ -126,13 +134,78 @@ export function Onboarding() {
     navigate(editing ? '/app/profile' : '/app/discover')
   }
 
+  /** Map Kimi's parsed résumé (team-server contract) onto the onboarding draft. */
+  function applyParsed(r: ParsedResume) {
+    const experience: Experience[] = (r.work_history ?? []).map((w) => {
+      const start = splitYm(w.start)
+      const current = w.end === 'present'
+      const end = current ? { month: '', year: '' } : splitYm(w.end)
+      return {
+        id: uid(),
+        title: w.title ?? '',
+        company: w.company ?? '',
+        location: w.location ?? '',
+        startMonth: start.month,
+        startYear: start.year,
+        endMonth: end.month,
+        endYear: end.year,
+        current,
+        responsibilities: (w.highlights ?? []).join(' '),
+        achievements: '',
+      }
+    })
+    const education: Education[] = (r.education ?? []).map((e) => ({
+      id: uid(),
+      institution: e.school ?? '',
+      degree: e.degree ?? '',
+      field: '',
+      startYear: splitYm(e.start).year,
+      gradYear: splitYm(e.end).year,
+      grade: e.notes ?? '',
+      activities: '',
+    }))
+    const skills = flattenSkills(r.skills)
+    set({
+      ...(experience.length ? { experience } : {}),
+      ...(education.length ? { education } : {}),
+      ...(skills.length ? { skills } : {}),
+    })
+  }
+
   function onResumePick(file: File | undefined) {
     if (!file) return
     setAnalysing(true)
     setResumeDone(false)
+    const stored = {
+      resume: {
+        fileName: file.name,
+        sizeKb: Math.max(1, Math.round(file.size / 1024)),
+        uploadedAt: Date.now(),
+      },
+    }
+    if (live.enabled) {
+      // team server up: Kimi parses the résumé text and prefills the draft
+      file
+        .text()
+        .then((text) => parseResume(text))
+        .then((parsed) => {
+          applyParsed(parsed)
+          set(stored)
+          setAnalysing(false)
+          setResumeDone(true)
+          showToast('Résumé parsed by Kimi — steps prefilled')
+        })
+        .catch(() => {
+          // Kimi unavailable/failed: keep the simulated path so onboarding never stalls
+          set(stored)
+          setAnalysing(false)
+          setResumeDone(true)
+        })
+      return
+    }
     // simulated parse: only filename + size stored, never the contents
     analyseTimer.current = window.setTimeout(() => {
-      set({ resume: { fileName: file.name, sizeKb: Math.max(1, Math.round(file.size / 1024)), uploadedAt: Date.now() } })
+      set(stored)
       setAnalysing(false)
       setResumeDone(true)
     }, 1500)
@@ -410,7 +483,9 @@ export function Onboarding() {
                   {analysing ? (
                     <>
                       <Loader2 size={22} className="animate-spin text-coral" aria-hidden="true" />
-                      <span className="text-sm font-semibold text-charcoal">Analysing résumé…</span>
+                      <span className="text-sm font-semibold text-charcoal">
+                        {live.enabled ? 'Kimi is reading your résumé…' : 'Analysing résumé…'}
+                      </span>
                     </>
                   ) : resumeDone && p.resume ? (
                     <>

@@ -11,6 +11,8 @@ import type { Job } from '../types'
 import { CompanyPanel } from './CompanyPanel'
 
 export function formatComp(job: Job): string {
+  if (job.compMin === undefined || job.compMax === undefined)
+    return job.salaryText ?? 'Compensation on listing'
   const f = (n: number) => n.toLocaleString('en-US')
   const per = job.compPeriod === 'month' ? '/mo' : '/yr'
   return `${job.currency} ${f(job.compMin)}–${f(job.compMax)}${per}${job.compNote ? ` ${job.compNote}` : ''}`
@@ -24,7 +26,8 @@ function Pill({ children }: { children: React.ReactNode }) {
   )
 }
 
-function ListSection({ title, items }: { title: string; items: string[] }) {
+function ListSection({ title, items }: { title: string; items?: string[] }) {
+  if (!items?.length) return null
   return (
     <section className="mt-4">
       <h3 className="font-display text-base font-bold text-charcoal">{title}</h3>
@@ -52,7 +55,7 @@ export function JobCard({ job, match }: { job: Job; match: number }) {
         <div className="absolute left-4 top-4 flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1 text-sm font-bold text-charcoal backdrop-blur">
           {match}% match
         </div>
-        {job.popularity >= 85 && (
+        {(job.popularity ?? 0) >= 85 && (
           <div className="absolute right-4 top-4 flex items-center gap-1 rounded-full bg-charcoal/80 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur">
             <Flame size={13} aria-hidden="true" className="text-coral" /> Trending
           </div>
@@ -66,26 +69,38 @@ export function JobCard({ job, match }: { job: Job; match: number }) {
         </h2>
         <p className="mt-1 flex items-center gap-1 text-sm text-charcoal-soft">
           <MapPin size={14} aria-hidden="true" />
-          {job.city}, {job.country}
+          {job.city}
+          {job.country && job.country !== job.city ? `, ${job.country}` : ''}
         </p>
 
         <div className="mt-3 flex flex-wrap gap-1.5">
-          <Pill>{job.workMode}</Pill>
-          <Pill>{job.employmentType}</Pill>
-          <Pill>{job.seniority}</Pill>
-          <Pill>{job.sponsorship}</Pill>
+          {job.workMode && <Pill>{job.workMode}</Pill>}
+          {job.employmentType && <Pill>{job.employmentType}</Pill>}
+          {job.seniority && <Pill>{job.seniority}</Pill>}
+          {job.sponsorship && <Pill>{job.sponsorship}</Pill>}
+          {job.categories.map((c) => job.source === 'live' && <Pill key={c}>{c}</Pill>)}
         </div>
 
         <p className="mt-3 text-base font-bold text-charcoal">{formatComp(job)}</p>
 
+        {job.match?.blurb && (
+          <p className="mt-3 rounded-2xl bg-coral-soft p-3 text-sm italic leading-relaxed text-coral-deep">
+            “{job.match.blurb}”
+          </p>
+        )}
+
         <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-charcoal-soft">
-          <span className="flex items-center gap-1">
-            <Users size={13} aria-hidden="true" /> {job.applicants} applicants
-          </span>
-          <span className="flex items-center gap-1">
-            <CalendarDays size={13} aria-hidden="true" /> Posted {job.postedDaysAgo}d ago
-          </span>
-          {job.closingInDays <= 10 && (
+          {job.applicants !== undefined && (
+            <span className="flex items-center gap-1">
+              <Users size={13} aria-hidden="true" /> {job.applicants} applicants
+            </span>
+          )}
+          {job.postedDaysAgo !== undefined && (
+            <span className="flex items-center gap-1">
+              <CalendarDays size={13} aria-hidden="true" /> Posted {job.postedDaysAgo}d ago
+            </span>
+          )}
+          {job.closingInDays !== undefined && job.closingInDays <= 10 && (
             <span className="flex items-center gap-1 font-semibold text-coral-deep">
               <Clock3 size={13} aria-hidden="true" /> Closes in {job.closingInDays}d
             </span>
@@ -94,41 +109,49 @@ export function JobCard({ job, match }: { job: Job; match: number }) {
 
         <p className="mt-4 text-sm leading-relaxed text-charcoal/90">{job.summary}</p>
 
-        <section className="mt-4 rounded-2xl bg-cream p-3.5">
-          <h3 className="font-display text-base font-bold text-charcoal">About {job.company}</h3>
-          <p className="mt-1 text-sm leading-relaxed text-charcoal/85">{job.companyDescription}</p>
-        </section>
+        {job.companyDescription && (
+          <section className="mt-4 rounded-2xl bg-cream p-3.5">
+            <h3 className="font-display text-base font-bold text-charcoal">About {job.company}</h3>
+            <p className="mt-1 text-sm leading-relaxed text-charcoal/85">{job.companyDescription}</p>
+          </section>
+        )}
 
         <ListSection title="What you'll do" items={job.responsibilities} />
         <ListSection title="What they're looking for" items={job.requirements} />
 
-        <section className="mt-4">
-          <h3 className="font-display text-base font-bold text-charcoal">Skills</h3>
-          <div className="mt-2 flex flex-wrap gap-1.5">
-            {job.skills.map((s) => (
-              <Pill key={s}>{s}</Pill>
-            ))}
-          </div>
-        </section>
+        {!!job.skills?.length && (
+          <section className="mt-4">
+            <h3 className="font-display text-base font-bold text-charcoal">Skills</h3>
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {job.skills.map((s) => (
+                <Pill key={s}>{s}</Pill>
+              ))}
+            </div>
+          </section>
+        )}
 
         <ListSection title="Benefits" items={job.benefits} />
 
-        <section className="mt-4 rounded-2xl border border-charcoal/10 p-3.5">
-          <div className="flex items-center gap-2">
-            <span className="flex items-center gap-1 text-sm font-bold text-charcoal">
-              <Star size={15} aria-hidden="true" className="fill-amber-400 text-amber-400" />
-              {job.rating.toFixed(1)}
-            </span>
-            <span className="text-xs text-charcoal-soft">{job.reviewCount.toLocaleString()} reviews</span>
-          </div>
-          <p className="mt-2 text-sm italic leading-relaxed text-charcoal/80">“{job.reviewExcerpt}”</p>
-          <p className="mt-2 flex items-center gap-1 text-[11px] text-charcoal-soft">
-            <BadgeCheck size={12} aria-hidden="true" /> Mock employee review data
-          </p>
-        </section>
+        {job.rating !== undefined && (
+          <section className="mt-4 rounded-2xl border border-charcoal/10 p-3.5">
+            <div className="flex items-center gap-2">
+              <span className="flex items-center gap-1 text-sm font-bold text-charcoal">
+                <Star size={15} aria-hidden="true" className="fill-amber-400 text-amber-400" />
+                {job.rating.toFixed(1)}
+              </span>
+              <span className="text-xs text-charcoal-soft">
+                {job.reviewCount?.toLocaleString()} reviews
+              </span>
+            </div>
+            <p className="mt-2 text-sm italic leading-relaxed text-charcoal/80">“{job.reviewExcerpt}”</p>
+            <p className="mt-2 flex items-center gap-1 text-[11px] text-charcoal-soft">
+              <BadgeCheck size={12} aria-hidden="true" /> Mock employee review data
+            </p>
+          </section>
+        )}
 
         <p className="mt-4 text-center text-[11px] text-charcoal-soft">
-          Demo listing · fictional company
+          {job.source === 'live' ? 'Live Workday listing via team server' : 'Demo listing · fictional company'}
         </p>
       </div>
     </article>

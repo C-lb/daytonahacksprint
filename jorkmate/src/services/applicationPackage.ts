@@ -8,7 +8,7 @@ import type { ApplicationPackage, Job, ScreeningAnswer, UserProfile } from '../t
 
 function overlapSkills(profile: UserProfile, job: Job): string[] {
   const mine = new Set([...profile.skills, ...profile.tools].map((s) => s.toLowerCase()))
-  return job.skills.filter((s) => mine.has(s.toLowerCase()))
+  return (job.skills ?? []).filter((s) => mine.has(s.toLowerCase()))
 }
 
 function latestRole(profile: UserProfile): string | null {
@@ -50,7 +50,7 @@ export function buildCoverNote(profile: UserProfile, job: Job): string {
     `Dear ${job.company} team,\n\n` +
     `I would like to be considered for the ${job.title} position in ${job.city}. ` +
     `${expLine} ${skillLine} ` +
-    `I am drawn to ${job.company} because of its focus described in the listing, and the ${job.workMode.toLowerCase()} arrangement fits how I work best. ` +
+    `I am drawn to ${job.company} because of its focus described in the listing${job.workMode ? `, and the ${job.workMode.toLowerCase()} arrangement fits how I work best` : ''}. ` +
     `I am available from ${profile.eligibility.earliestStart || profile.personal.earliestStart || 'the advertised start date'} and happy to complete any next steps.\n\n` +
     `Kind regards,\n${profile.personal.fullName}`
   )
@@ -88,30 +88,32 @@ export function buildScreeningAnswers(
   const sponsor = profile.eligibility.requiresSponsorship[country]
   const extraAuth = extraAnswers[`workAuth:${country}`]
 
-  answers.push({
-    question: `Are you legally authorised to work in ${country}?`,
-    answer:
-      extraAuth !== undefined
-        ? extraAuth
-        : auth === true
-          ? 'Yes'
-          : auth === false
-            ? 'No'
-            : 'Awaiting explicit answer',
-    sensitive: true,
-  })
-  answers.push({
-    question: 'Will you now or in the future require visa sponsorship?',
-    answer:
-      extraAuth !== undefined
-        ? extraAuth
-        : sponsor === true
-          ? 'Yes, sponsorship required'
-          : sponsor === false
-            ? 'No'
-            : 'Awaiting explicit answer',
-    sensitive: true,
-  })
+  if (country) {
+    answers.push({
+      question: `Are you legally authorised to work in ${country}?`,
+      answer:
+        extraAuth !== undefined
+          ? extraAuth
+          : auth === true
+            ? 'Yes'
+            : auth === false
+              ? 'No'
+              : 'Awaiting explicit answer',
+      sensitive: true,
+    })
+    answers.push({
+      question: 'Will you now or in the future require visa sponsorship?',
+      answer:
+        extraAuth !== undefined
+          ? extraAuth
+          : sponsor === true
+            ? 'Yes, sponsorship required'
+            : sponsor === false
+              ? 'No'
+              : 'Awaiting explicit answer',
+      sensitive: true,
+    })
+  }
   answers.push({
     question: 'Do you consent to a background check?',
     answer:

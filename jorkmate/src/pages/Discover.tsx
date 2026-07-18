@@ -57,19 +57,20 @@ function TopCard({
 }
 
 export function Discover() {
-  const { state, dispatch, showToast } = useApp()
+  const { state, dispatch, showToast, live } = useApp()
   const [lastDir, setLastDir] = useState<'left' | 'right'>('right')
   const reduce = useReducedMotion()
   const profile = state.profile!
 
   const appliedIds = useMemo(() => new Set(state.applications.map((a) => a.jobId)), [state.applications])
-  const deck = useMemo(
-    () =>
-      sortedDeck(profile, JOBS, state.settings.boostJobId).filter(
-        (j) => !state.skippedJobs.includes(j.id) && !appliedIds.has(j.id),
-      ),
-    [profile, state.skippedJobs, appliedIds, state.settings.boostJobId],
-  )
+  // live mode: Workday jobs from the team server (already excludes applied);
+  // otherwise the ten seeded demo listings
+  const deck = useMemo(() => {
+    const source = live.enabled && live.jobs.length ? live.jobs : JOBS
+    return sortedDeck(profile, source, state.settings.boostJobId).filter(
+      (j) => !state.skippedJobs.includes(j.id) && !appliedIds.has(j.id),
+    )
+  }, [profile, live.enabled, live.jobs, state.skippedJobs, appliedIds, state.settings.boostJobId])
 
   const top = deck[0]
 
@@ -78,6 +79,15 @@ export function Discover() {
     setLastDir(dir)
     if (dir === 'left') {
       dispatch({ type: 'SKIP_JOB', jobId: top.id })
+    } else if (top.source === 'live') {
+      showToast('Application agent spawned')
+      const liveJob = top
+      live.swipeRight(top.id).then((ok) => {
+        if (!ok) {
+          // server hiccup: fall back to the local simulator so the demo never stalls
+          dispatch({ type: 'APPLY', jobId: liveJob.id, now: Date.now(), job: liveJob })
+        }
+      })
     } else {
       dispatch({ type: 'APPLY', jobId: top.id, now: Date.now() })
       showToast('Application agent spawned')
@@ -182,7 +192,9 @@ export function Discover() {
         </button>
       </div>
       <p className="pb-2 text-center text-[10px] text-charcoal-soft">
-        Fictional listings and simulated submissions for demo purposes.
+        {live.enabled && live.jobs.length
+          ? 'Live listings from the team server · applications run in a Daytona sandbox.'
+          : 'Fictional listings and simulated submissions for demo purposes.'}
       </p>
     </div>
   )

@@ -1,26 +1,42 @@
 import { useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { AlertCircle, Bot, CheckCircle2, ChevronDown, Loader2 } from 'lucide-react'
+import {
+  AlertCircle,
+  Bot,
+  CheckCircle2,
+  ChevronDown,
+  Eraser,
+  FastForward,
+  Loader2,
+  XCircle,
+} from 'lucide-react'
 import { useApp } from '../state/AppContext'
 import { getJob } from '../data/jobs'
 import { deriveAgentState, SUBMITTED_STAGE } from '../services/agentSimulator'
-import type { Application, DerivedAgentState, Job } from '../types'
+import type { Application, DerivedAgentState, Job, LiveApplication } from '../types'
 import { inputCls } from '../components/ui'
 import { CompanyPanel } from '../components/CompanyPanel'
 
 type Tab = 'active' | 'submitted' | 'action'
+type ChipStatus = DerivedAgentState['status'] | 'applying' | 'failed'
 
-function StatusChip({ status }: { status: DerivedAgentState['status'] }) {
+function StatusChip({ status, live }: { status: ChipStatus; live?: boolean }) {
   if (status === 'submitted')
     return (
       <span className="flex items-center gap-1 rounded-full bg-sage/15 px-2.5 py-1 text-[11px] font-bold text-sage">
-        <CheckCircle2 size={12} aria-hidden="true" /> Submitted · Demo mode
+        <CheckCircle2 size={12} aria-hidden="true" /> {live ? 'Submitted · Live' : 'Submitted · Demo mode'}
       </span>
     )
   if (status === 'action-required')
     return (
       <span className="flex items-center gap-1 rounded-full bg-coral-soft px-2.5 py-1 text-[11px] font-bold text-coral-deep">
         <AlertCircle size={12} aria-hidden="true" /> Action required
+      </span>
+    )
+  if (status === 'failed')
+    return (
+      <span className="flex items-center gap-1 rounded-full bg-charcoal/10 px-2.5 py-1 text-[11px] font-bold text-charcoal">
+        <XCircle size={12} aria-hidden="true" /> Failed
       </span>
     )
   return (
@@ -40,6 +56,10 @@ function timeAgo(ts: number, now: number): string {
   return h < 24 ? `${h}h ago` : `${Math.floor(h / 24)}d ago`
 }
 
+const fmtTime = (t: number) =>
+  new Date(t).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+
+/** Simulated (local) application: package + derived agent timeline. */
 function ApplicationCard({ app, job }: { app: Application; job: Job }) {
   const { state, dispatch, now, showToast } = useApp()
   const [open, setOpen] = useState(false)
@@ -190,6 +210,9 @@ function ApplicationCard({ app, job }: { app: Application; job: Job }) {
                     <span className={ev.status === 'waiting' ? 'text-charcoal-soft' : 'text-charcoal'}>
                       {ev.label}
                     </span>
+                    {ev.status !== 'waiting' && (
+                      <span className="ml-auto text-[11px] text-charcoal-soft">{fmtTime(ev.at)}</span>
+                    )}
                   </li>
                 ))}
               </ol>
@@ -201,33 +224,119 @@ function ApplicationCard({ app, job }: { app: Application; job: Job }) {
   )
 }
 
+/** Live application: real Daytona/Workday pipeline steps streamed from the team server. */
+function LiveCard({ app, job }: { app: LiveApplication; job: Job | undefined }) {
+  const { now } = useApp()
+  const [open, setOpen] = useState(false)
+  const steps = app.steps.filter((s) => !s.message.startsWith('status:'))
+  const screenshotSrc = app.screenshot
+    ? /^(data:|https?:|\/)/.test(app.screenshot)
+      ? app.screenshot
+      : `data:image/png;base64,${app.screenshot}`
+    : null
+
+  return (
+    <li className="overflow-hidden rounded-2xl bg-white shadow-sm">
+      <button type="button" onClick={() => setOpen(!open)} aria-expanded={open} className="w-full p-3.5 text-left">
+        <div className="flex items-center gap-3">
+          {job ? (
+            <CompanyPanel job={job} compact />
+          ) : (
+            <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-charcoal text-cream">
+              <Bot size={20} aria-hidden="true" />
+            </span>
+          )}
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-sm font-bold text-charcoal">{job?.title ?? 'Workday listing'}</p>
+            <p className="truncate text-xs text-charcoal-soft">
+              {job?.company ?? app.jobId} · {timeAgo(app.createdAt, now)}
+            </p>
+            <div className="mt-1.5 flex items-center gap-2">
+              <StatusChip status={app.status === 'applying' ? 'running' : app.status} live />
+              <span className="rounded-full border border-coral/40 px-2 py-0.5 text-[10px] font-semibold text-coral-deep">
+                Live · Daytona
+              </span>
+            </div>
+          </div>
+          <ChevronDown
+            size={18}
+            aria-hidden="true"
+            className={`shrink-0 text-charcoal-soft transition-transform ${open ? 'rotate-180' : ''}`}
+          />
+        </div>
+      </button>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="overflow-hidden"
+          >
+            <div className="border-t border-charcoal/10 px-4 pb-4 pt-3 text-sm">
+              <h4 className="font-display font-bold text-charcoal">Pipeline steps</h4>
+              {steps.length === 0 ? (
+                <p className="mt-1 text-charcoal-soft">Waiting for the first agent event…</p>
+              ) : (
+                <ol className="mt-2 space-y-1.5">
+                  {steps.map((s, i) => (
+                    <li key={`${s.t}-${i}`} className="flex items-start gap-2 text-[13px]">
+                      <CheckCircle2 size={14} className="mt-0.5 shrink-0 text-sage" aria-hidden="true" />
+                      <span className="min-w-0 break-words text-charcoal">{s.message}</span>
+                      <span className="ml-auto shrink-0 text-[11px] text-charcoal-soft">{fmtTime(s.t)}</span>
+                    </li>
+                  ))}
+                </ol>
+              )}
+              {screenshotSrc && (
+                <img
+                  src={screenshotSrc}
+                  alt="Latest screenshot from the apply agent"
+                  className="mt-3 w-full rounded-xl border border-charcoal/10"
+                />
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </li>
+  )
+}
+
 export function Applications() {
-  const { state, now } = useApp()
+  const { state, dispatch, now, showToast, live } = useApp()
   const [tab, setTab] = useState<Tab>('active')
 
-  const rows = useMemo(() => {
+  const localRows = useMemo(() => {
     return state.applications
+      .filter((a) => !a.clearedFromActivity)
       .map((app) => {
-        const job = getJob(app.jobId)
+        const job = getJob(app.jobId) ?? live.jobIndex[app.jobId]
         if (!job || !state.profile) return null
         return { app, job, derived: deriveAgentState(app, state.profile, job, now) }
       })
       .filter((r): r is NonNullable<typeof r> => r !== null)
-  }, [state.applications, state.profile, now])
+  }, [state.applications, state.profile, now, live.jobIndex])
 
-  const filtered = rows.filter((r) =>
-    tab === 'active'
-      ? r.derived.status === 'queued' || r.derived.status === 'running'
-      : tab === 'submitted'
-        ? r.derived.status === 'submitted'
-        : r.derived.status === 'action-required' || r.derived.status === 'failed',
+  const bucket = (s: string) =>
+    s === 'queued' || s === 'running' || s === 'applying'
+      ? 'active'
+      : s === 'submitted'
+        ? 'submitted'
+        : 'action'
+
+  const filteredLocal = localRows.filter((r) => bucket(r.derived.status) === tab)
+  const filteredLive = live.apps.filter((a) => bucket(a.status) === tab)
+
+  const counts: Record<Tab, number> = { active: 0, submitted: 0, action: 0 }
+  localRows.forEach((r) => counts[bucket(r.derived.status) as Tab]++)
+  live.apps.forEach((a) => counts[bucket(a.status) as Tab]++)
+
+  const anySimActive = localRows.some(
+    (r) => r.derived.status === 'queued' || r.derived.status === 'running',
   )
-
-  const counts: Record<Tab, number> = {
-    active: rows.filter((r) => r.derived.status === 'queued' || r.derived.status === 'running').length,
-    submitted: rows.filter((r) => r.derived.status === 'submitted').length,
-    action: rows.filter((r) => r.derived.status === 'action-required' || r.derived.status === 'failed').length,
-  }
+  const anySimComplete = localRows.some((r) => r.derived.status === 'submitted')
 
   const TABS: { id: Tab; label: string }[] = [
     { id: 'active', label: 'Active' },
@@ -239,10 +348,14 @@ export function Applications() {
     <div className="h-full overflow-y-auto bg-cream px-4 pb-6 pt-3">
       <header className="mb-3 px-1">
         <h1 className="font-display text-2xl font-bold text-charcoal">Applications</h1>
-        <p className="text-xs text-charcoal-soft">Every submission is simulated — demo mode.</p>
+        <p className="text-xs text-charcoal-soft">
+          {live.enabled
+            ? 'Live agents run on the team server; simulated agents run in-browser.'
+            : 'Every submission is simulated — demo mode.'}
+        </p>
       </header>
 
-      <div role="tablist" aria-label="Filter applications" className="mb-4 flex gap-1.5">
+      <div role="tablist" aria-label="Filter applications" className="mb-3 flex gap-1.5">
         {TABS.map((t) => (
           <button
             key={t.id}
@@ -259,7 +372,29 @@ export function Applications() {
         ))}
       </div>
 
-      {filtered.length === 0 ? (
+      <div className="mb-4 flex gap-2">
+        <button
+          type="button"
+          disabled={!anySimActive}
+          onClick={() => {
+            dispatch({ type: 'FAST_FORWARD', now: Date.now() })
+            showToast('Simulated agents fast-forwarded')
+          }}
+          className="flex items-center gap-1.5 rounded-full bg-charcoal px-3.5 py-2 text-xs font-bold text-cream active:scale-95 disabled:opacity-40"
+        >
+          <FastForward size={14} aria-hidden="true" /> Fast-forward demo
+        </button>
+        <button
+          type="button"
+          disabled={!anySimComplete}
+          onClick={() => dispatch({ type: 'CLEAR_COMPLETED', now: Date.now() })}
+          className="flex items-center gap-1.5 rounded-full border border-charcoal/20 bg-white px-3.5 py-2 text-xs font-bold text-charcoal active:scale-95 disabled:opacity-40"
+        >
+          <Eraser size={14} aria-hidden="true" /> Clear completed
+        </button>
+      </div>
+
+      {filteredLocal.length === 0 && filteredLive.length === 0 ? (
         <div className="mt-16 text-center">
           <Bot size={36} className="mx-auto text-charcoal/25" aria-hidden="true" />
           <p className="font-display mt-3 text-xl font-bold text-charcoal">
@@ -275,7 +410,10 @@ export function Applications() {
         </div>
       ) : (
         <ul className="space-y-3">
-          {filtered.map((r) => (
+          {filteredLive.map((a) => (
+            <LiveCard key={a.id} app={a} job={live.jobIndex[a.jobId]} />
+          ))}
+          {filteredLocal.map((r) => (
             <ApplicationCard key={r.app.id} app={r.app} job={r.job} />
           ))}
         </ul>

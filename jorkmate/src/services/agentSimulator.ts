@@ -41,7 +41,7 @@ export function missingSensitiveAnswer(
   const auth = profile.eligibility.workAuthorization[country]
   const sponsor = profile.eligibility.requiresSponsorship[country]
   const authKey = `workAuth:${country}`
-  if (auth === undefined && sponsor === undefined && !(authKey in extraAnswers)) {
+  if (country && auth === undefined && sponsor === undefined && !(authKey in extraAnswers)) {
     return {
       key: authKey,
       question: `Are you authorised to work in ${country}, or would you require visa sponsorship? The agent will not answer this for you.`,
