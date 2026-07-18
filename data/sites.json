@@ -1,5 +1,5 @@
 [
-  { "company": "NVIDIA", "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite" },
-  { "company": "Salesforce", "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site" },
-  { "company": "Adobe", "url": "https://adobe.wd5.myworkdayjobs.com/external_experienced" }
+  { "company": "NVIDIA", "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite", "industry": "Software & Developer Tools" },
+  { "company": "Salesforce", "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site", "industry": "Software & Developer Tools" },
+  { "company": "Adobe", "url": "https://adobe.wd5.myworkdayjobs.com/external_experienced", "industry": "E-commerce" }
 ]

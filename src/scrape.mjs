@@ -33,7 +33,7 @@ export async function scrapeAll() {
         if (seen.has(url)) continue;
         seen.add(url); added++;
         jobs.push({ id: `job-${Date.now()}-${added}`, company: site.company, title: p.title,
-          location: p.locationsText ?? '', salary: null, url, industry: 'Software & Developer Tools',
+          location: p.locationsText ?? '', salary: null, url, industry: site.industry ?? 'Software & Developer Tools',
           description: p.title, match: null });
       }
       console.log(`${site.company}: ok`);
