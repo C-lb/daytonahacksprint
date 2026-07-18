@@ -5,7 +5,17 @@ import { load, save } from './store.mjs';
 
 const app = express();
 app.use(express.json({ limit: '10mb' }));
-app.use(express.static(new URL('../web', import.meta.url).pathname));
+// Serve the built PWA. Content-hashed assets (index-*.js/css) can cache forever,
+// but index.html must NOT be cached, or a rebuilt bundle keeps serving the stale
+// page on the demo device. no-store on the HTML guarantees every load is fresh.
+app.use(
+  express.static(new URL('../web', import.meta.url).pathname, {
+    setHeaders: (res, path) => {
+      if (path.endsWith('.html')) res.setHeader('Cache-Control', 'no-store, must-revalidate');
+      else if (/\/assets\//.test(path)) res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    },
+  }),
+);
 
 // --- SSE plumbing: per-application event buffer + live subscribers ---
 const buffers = new Map();   // appId -> [{step, message, screenshot?}]
