@@ -15,7 +15,7 @@ and industry picks.
 | Form factor | **Mobile web app / PWA**, iOS-native styling, demoed on a real iPhone over LAN |
 | Profile scope | **Resume PDF + basics + industry picks**; Kimi parses resume into structured profile |
 | Matching | **Per-card match score + blurb from a Nosana-deployed open model** |
-| Apply UX | **Hybrid**: swipe continues instantly, toast "agent applying…", tap toast → live agent bottom sheet |
+| Apply UX | Swipe continues instantly, toast "agent applying…"; **live agent bottom sheet is stretch scope** — core flow is background apply → status in Applications tab |
 
 ## Sponsor mapping (judging: coordination of Daytona + Kimi + Nosana)
 
@@ -66,16 +66,23 @@ Storage: three JSON files, no DB — `data/profile.json`, `data/jobs.json`,
 1. **Onboarding** (first launch): name/email/phone → industry multi-pick chips → resume
    PDF upload → "Kimi is reading your resume…" progress → parsed profile confirmation
    screen (editable fields).
-2. **Deck** (home): full-bleed job cards — company, role, location, salary if scraped,
+2. **Deck** (tab 1): full-bleed job cards — company, role, location, salary if scraped,
    match score badge + Nosana blurb. Right = apply (APPLIED stamp), left = skip (PASS
    stamp), rubber-band physics, undo snackbar on left-swipe.
-3. **Live agent view:** bottom sheet from tapping the "agent applying…" toast — streamed
-   Daytona screenshots + step log ("Opening posting → Filling contact info → Uploading
-   resume → Submitted ✓"). Dismissable; apply continues in background.
-4. **Applications tab:** right-swipe history with status chips
+3. **Highlights** (tab 2): horizontal carousel of curated top jobs for the user —
+   highlighted cards ranked by Nosana match score (top N of the deck). Tapping a card
+   opens it for swipe/apply.
+4. **Applications** (tab 3): active applications/review processes with status chips
    `queued / applying / submitted / failed`; tap → final screenshot; failed → retry.
+5. **Profile** (tab 4): edit basics/industries and everything that gets prefilled into
+   applications; re-upload/re-parse resume.
 
-Tab bar: **Deck · Applications · Profile** (profile view/edit + re-parse resume).
+Tab bar (4 icons): **Deck · Highlights · Applications · Profile**.
+
+**Stretch (time-permitting) — live agent view:** bottom sheet from tapping the
+"agent applying…" toast — streamed Daytona screenshots + step log. Core scope ships
+background apply with status tracking only; the SSE stream endpoint stays in the API so
+the sheet can be added without server changes.
 
 ## API
 
@@ -118,10 +125,11 @@ possible in a day.
 
 1. (10s) Profile exists; "Kimi read my resume."
 2. (15s) Tap refresh → live Oxylabs scrape lands new cards.
-3. (20s) Swipe deck; call out Nosana match scores.
-4. (45s) Right-swipe rehearsed job → tap toast → live Daytona feed fills the real Workday
-   form → **Submitted ✓**.
-5. (20s) Applications tab confirmation; close on the sponsor-loop diagram.
+3. (20s) Swipe deck; show Highlights carousel; call out Nosana match scores.
+4. (45s) Right-swipe rehearsed job → Applications tab shows `applying` → step screenshots
+   land → **Submitted ✓**. (If the stretch live-agent sheet ships, tap the toast and
+   watch the Daytona feed instead.)
+5. (20s) Final confirmation screenshot; close on the sponsor-loop diagram.
 
 ## Testing
 
