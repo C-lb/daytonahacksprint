@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { Flame, Layers, Sparkles, UserRound } from 'lucide-react'
-import { useApp } from '../state/AppContext'
+import { useApp, useNow } from '../state/AppContext'
 import { deriveAgentState } from '../services/agentSimulator'
 import { getJob } from '../data/jobs'
 
@@ -12,7 +12,8 @@ const TABS = [
 ]
 
 export function BottomNav() {
-  const { state, now, live } = useApp()
+  const { state, live } = useApp()
+  const now = useNow()
   const derived = state.profile
     ? state.applications.map((a) => {
         const job = getJob(a.jobId) ?? live.jobIndex[a.jobId]

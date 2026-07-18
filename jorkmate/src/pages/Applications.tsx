@@ -10,7 +10,7 @@ import {
   Loader2,
   XCircle,
 } from 'lucide-react'
-import { useApp } from '../state/AppContext'
+import { useApp, useNow } from '../state/AppContext'
 import { getJob } from '../data/jobs'
 import { deriveAgentState, SUBMITTED_STAGE } from '../services/agentSimulator'
 import type { Application, DerivedAgentState, Job, LiveApplication } from '../types'
@@ -61,7 +61,8 @@ const fmtTime = (t: number) =>
 
 /** Simulated (local) application: package + derived agent timeline. */
 function ApplicationCard({ app, job }: { app: Application; job: Job }) {
-  const { state, dispatch, now, showToast } = useApp()
+  const { state, dispatch, showToast } = useApp()
+  const now = useNow()
   const [open, setOpen] = useState(false)
   const [answer, setAnswer] = useState('')
   const derived = deriveAgentState(app, state.profile!, job, now)
@@ -226,7 +227,7 @@ function ApplicationCard({ app, job }: { app: Application; job: Job }) {
 
 /** Live application: real Daytona/Workday pipeline steps streamed from the team server. */
 function LiveCard({ app, job }: { app: LiveApplication; job: Job | undefined }) {
-  const { now } = useApp()
+  const now = useNow()
   const [open, setOpen] = useState(false)
   const steps = app.steps.filter((s) => !s.message.startsWith('status:'))
   const screenshotSrc = app.screenshot
@@ -305,7 +306,8 @@ function LiveCard({ app, job }: { app: LiveApplication; job: Job | undefined }) 
 }
 
 export function Applications() {
-  const { state, dispatch, now, showToast, live } = useApp()
+  const { state, dispatch, showToast, live } = useApp()
+  const now = useNow()
   const [tab, setTab] = useState<Tab>('active')
 
   const localRows = useMemo(() => {

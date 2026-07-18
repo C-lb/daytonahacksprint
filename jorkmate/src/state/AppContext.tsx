@@ -189,13 +189,17 @@ interface LiveState {
 interface AppContextValue {
   state: AppState
   dispatch: (action: Action) => void
-  now: number
   toasts: Toast[]
   showToast: (message: string) => void
   live: LiveState
 }
 
 const AppContext = createContext<AppContextValue | null>(null)
+
+// `now` lives in its own context so the 400ms agent clock only re-renders the
+// components that show elapsed time (Applications, the nav badge), not the whole
+// app. Keeping it in AppContext made every tab re-render 2.5x/sec while an agent ran.
+const NowContext = createContext<number>(0)
 
 export function AppProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(reducer, undefined, initialState)
@@ -273,7 +277,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
         dispatch(action)
         setNow(Date.now())
       },
-      now,
       toasts,
       showToast: (message: string) => {
         const id = ++toastId.current
@@ -297,14 +300,24 @@ export function AppProvider({ children }: { children: ReactNode }) {
         },
       },
     }),
-    [state, now, toasts, liveEnabled, liveJobs, liveApps, liveJobIndex],
+    [state, toasts, liveEnabled, liveJobs, liveApps, liveJobIndex],
   )
 
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>
+  return (
+    <AppContext.Provider value={value}>
+      <NowContext.Provider value={now}>{children}</NowContext.Provider>
+    </AppContext.Provider>
+  )
 }
 
 export function useApp(): AppContextValue {
   const ctx = useContext(AppContext)
   if (!ctx) throw new Error('useApp must be used inside AppProvider')
   return ctx
+}
+
+/** The shared agent clock. Separate from useApp so its 400ms tick only
+ *  re-renders time-displaying components, not every context consumer. */
+export function useNow(): number {
+  return useContext(NowContext)
 }
