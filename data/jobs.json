@@ -1,0 +1,90 @@
+[
+  {
+    "id": "job-001",
+    "company": "NVIDIA",
+    "title": "Senior Software Engineer, AI Infrastructure",
+    "location": "Singapore",
+    "salary": null,
+    "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/R1376700",
+    "industry": "Software & Developer Tools",
+    "description": "Build the tooling that trains the models. Design and scale distributed systems for high-throughput AI training pipelines. Own systems handling petabyte-scale workloads across clusters of GPUs.",
+    "match": null
+  },
+  {
+    "id": "job-002",
+    "company": "Stripe",
+    "title": "Senior Full-Stack Engineer, Payments Platform",
+    "location": "Singapore",
+    "salary": null,
+    "url": "https://stripe.wd5.myworkdayjobs.com/ExternalCareerSite/job/FE-PAYMENTS-004",
+    "industry": "Fintech",
+    "description": "Shape the next generation of Stripe's payment processing infrastructure. Work across backend (Go, TypeScript) and frontend (React) to build reliable, sub-millisecond payment flows used by millions.",
+    "match": null
+  },
+  {
+    "id": "job-003",
+    "company": "Salesforce",
+    "title": "Senior Software Engineer, Developer Platform",
+    "location": "Singapore",
+    "salary": null,
+    "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/R2024-21047",
+    "industry": "Software & Developer Tools",
+    "description": "Lead platform architecture for developer tooling at scale. Build SDKs, APIs, and observability systems that thousands of developers depend on. Partner with product to ship from concept to production.",
+    "match": null
+  },
+  {
+    "id": "job-004",
+    "company": "Adobe",
+    "title": "Senior Full-Stack Engineer, E-commerce Platform",
+    "location": "Singapore",
+    "salary": null,
+    "url": "https://adobe.wd5.myworkdayjobs.com/external_experienced/job/PSDC-SG-24-001",
+    "industry": "E-commerce",
+    "description": "Build scalable e-commerce infrastructure handling millions of transactions daily. Optimize checkout flows, payment processing, and order fulfillment systems. Mentor engineers and own on-call reliability.",
+    "match": null
+  },
+  {
+    "id": "job-005",
+    "company": "Grab",
+    "title": "Senior Software Engineer, Payment Systems",
+    "location": "Singapore",
+    "salary": null,
+    "url": "https://grab.wd5.myworkdayjobs.com/GrabCareerSite/job/PAY-SG-2024-156",
+    "industry": "Fintech",
+    "description": "Scale GrabPay to serve billions of transactions across Southeast Asia. Own end-to-end payment pipeline, fraud detection, and settlement systems. Drive innovation in mobile-first fintech infrastructure.",
+    "match": null
+  },
+  {
+    "id": "job-006",
+    "company": "Shopify",
+    "title": "Senior Software Engineer, Shop Apps Platform",
+    "location": "Singapore",
+    "salary": null,
+    "url": "https://shopify.wd5.myworkdayjobs.com/ExternalCareerSite/job/SHOP-PS-2024-089",
+    "industry": "E-commerce",
+    "description": "Build the platform that powers commerce apps for millions of merchants globally. Own APIs, SDKs, and real-time systems for payments, fulfillment, and inventory. Work with React and Node at scale.",
+    "match": null
+  },
+  {
+    "id": "job-007",
+    "company": "Figma",
+    "title": "Senior Software Engineer, Infrastructure",
+    "location": "Singapore",
+    "salary": null,
+    "url": "https://figma.wd5.myworkdayjobs.com/ExternalCareerSite/job/FIG-ENG-2024-134",
+    "industry": "Software & Developer Tools",
+    "description": "Architect infrastructure for a design platform used by 10M+ creators. Optimize real-time collaboration, WebSocket scalability, and render performance. Own systems supporting live multiplayer editing.",
+    "match": null
+  },
+  {
+    "id": "job-008",
+    "company": "Square",
+    "title": "Senior Full-Stack Engineer, Cash App Commerce",
+    "location": "Singapore",
+    "salary": null,
+    "url": "https://square.wd5.myworkdayjobs.com/ExternalCareerSite/job/SQ-COMERCE-2024-087",
+    "industry": "Fintech",
+    "description": "Build trust and reliability into Cash App's commerce and banking features. Ship payments, money transfers, and financial services to millions of users. Lead technical roadmap for core platform systems.",
+    "match": null
+  }
+]

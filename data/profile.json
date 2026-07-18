@@ -1,0 +1,87 @@
+{
+  "id": "demo-maya-tan",
+  "seeded": true,
+  "kimi_parsed": true,
+  "basics": {
+    "full_name": "Maya Tan",
+    "first_name": "Maya",
+    "last_name": "Tan",
+    "email": "maya.tan.dev@gmail.com",
+    "phone": "+65 8123 4567",
+    "location": "Singapore",
+    "links": {
+      "linkedin": "https://linkedin.com/in/mayatan-dev",
+      "github": "https://github.com/mayatan",
+      "portfolio": "https://mayatan.dev"
+    }
+  },
+  "industries": ["Software & Developer Tools", "Fintech", "E-commerce"],
+  "summary": "Full-stack software engineer with 5 years building product-facing systems in fintech and developer tools. Ships from prototype to production in TypeScript/React and Node, with a bias for reliability and developer experience. Led a 4-engineer team on checkout reliability.",
+  "work_history": [
+    {
+      "company": "Grab",
+      "title": "Senior Software Engineer",
+      "location": "Singapore",
+      "start": "2023-01",
+      "end": "present",
+      "highlights": [
+        "Led checkout reliability workstream for GrabPay, cutting p99 payment latency 38%.",
+        "Mentored 4 engineers; owned on-call playbooks that halved payment incident MTTR.",
+        "Shipped an idempotent refunds service (Go + PostgreSQL) handling 2M+ txns/day."
+      ]
+    },
+    {
+      "company": "Shopee",
+      "title": "Software Engineer",
+      "location": "Singapore",
+      "start": "2020-06",
+      "end": "2022-12",
+      "highlights": [
+        "Built seller-analytics dashboards (React, Node, ClickHouse) used by 300k+ sellers.",
+        "Cut dashboard load time from 6s to under 1s with query + caching redesign.",
+        "Drove adoption of TypeScript and CI test gates across the seller-tools squad."
+      ]
+    },
+    {
+      "company": "GovTech Singapore",
+      "title": "Software Engineer Intern",
+      "location": "Singapore",
+      "start": "2019-05",
+      "end": "2019-11",
+      "highlights": [
+        "Prototyped an accessibility linter adopted into an internal design system."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "school": "National University of Singapore",
+      "degree": "B.Comp (Hons), Computer Science",
+      "start": "2015-08",
+      "end": "2019-05",
+      "notes": "First Class Honours"
+    }
+  ],
+  "skills": {
+    "languages": ["TypeScript", "JavaScript", "Python", "Go", "SQL"],
+    "frontend": ["React", "Next.js", "Tailwind CSS"],
+    "backend": ["Node.js", "Express", "PostgreSQL", "Redis"],
+    "cloud": ["AWS", "Docker", "Kubernetes"],
+    "practices": ["CI/CD", "TDD", "Observability"]
+  },
+  "application_answers": {
+    "work_authorization": "Authorized to work in Singapore (Singapore Citizen)",
+    "requires_sponsorship": false,
+    "willing_to_relocate": "Open to relocation (Singapore or remote)",
+    "notice_period": "1 month",
+    "earliest_start_date": "1 month from offer",
+    "expected_salary": "SGD 120,000–140,000 per year",
+    "salary_negotiable": true,
+    "how_did_you_hear": "Company website",
+    "gender": "Prefer not to disclose",
+    "veteran_status": "Prefer not to disclose",
+    "disability_status": "Prefer not to disclose",
+    "cover_blurb": "Full-stack engineer with 5 years shipping product-facing systems in fintech and developer tools. I move fast from prototype to production, care about reliability and DX, and have led a small team through it. Excited to bring that to your team."
+  },
+  "resume_file": "data/resume-maya-tan.pdf"
+}
