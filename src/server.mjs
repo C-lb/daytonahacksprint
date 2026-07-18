@@ -80,3 +80,5 @@ app.get('/api/apply/:id/stream', (req, res) => {
 
 const port = process.env.PORT || 3000;
 app.listen(port, '0.0.0.0', () => console.log(`jorkmate on http://localhost:${port} (LAN: your-ip:${port})`));
+
+import('./match.mjs').then(({ scoreAll }) => scoreAll()).catch(() => {});

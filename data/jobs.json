@@ -8,7 +8,11 @@
     "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/R1376700",
     "industry": "Software & Developer Tools",
     "description": "Build the tooling that trains the models. Design and scale distributed systems for high-throughput AI training pipelines. Own systems handling petabyte-scale workloads across clusters of GPUs.",
-    "match": null
+    "match": {
+      "score": 65,
+      "blurb": "Your fintech reliability chops and Go-backed distributed systems experience would make you a natural at scaling NVIDIA's petabyte-scale AI t",
+      "via": "fallback"
+    }
   },
   {
     "id": "job-002",
@@ -19,7 +23,11 @@
     "url": "https://stripe.wd5.myworkdayjobs.com/ExternalCareerSite/job/FE-PAYMENTS-004",
     "industry": "Fintech",
     "description": "Shape the next generation of Stripe's payment processing infrastructure. Work across backend (Go, TypeScript) and frontend (React) to build reliable, sub-millisecond payment flows used by millions.",
-    "match": null
+    "match": {
+      "score": 92,
+      "blurb": "With your knack for slashing payment latency and shipping high-throughput refund services, you'd make Stripe's payment flows sing almost as ",
+      "via": "fallback"
+    }
   },
   {
     "id": "job-003",
@@ -30,7 +38,11 @@
     "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/R2024-21047",
     "industry": "Software & Developer Tools",
     "description": "Lead platform architecture for developer tooling at scale. Build SDKs, APIs, and observability systems that thousands of developers depend on. Partner with product to ship from concept to production.",
-    "match": null
+    "match": {
+      "score": 87,
+      "blurb": "Your track record of shipping resilient, developer-focused systems and leading reliability improvements makes you the perfect match to archi",
+      "via": "fallback"
+    }
   },
   {
     "id": "job-004",
@@ -41,7 +53,11 @@
     "url": "https://adobe.wd5.myworkdayjobs.com/external_experienced/job/PSDC-SG-24-001",
     "industry": "E-commerce",
     "description": "Build scalable e-commerce infrastructure handling millions of transactions daily. Optimize checkout flows, payment processing, and order fulfillment systems. Mentor engineers and own on-call reliability.",
-    "match": null
+    "match": {
+      "score": 95,
+      "blurb": "Your fintech checkout expertise and payment reliability wins at Grab are practically a love letter to Adobe's e-commerce platform.",
+      "via": "fallback"
+    }
   },
   {
     "id": "job-005",
@@ -52,7 +68,11 @@
     "url": "https://grab.wd5.myworkdayjobs.com/GrabCareerSite/job/PAY-SG-2024-156",
     "industry": "Fintech",
     "description": "Scale GrabPay to serve billions of transactions across Southeast Asia. Own end-to-end payment pipeline, fraud detection, and settlement systems. Drive innovation in mobile-first fintech infrastructure.",
-    "match": null
+    "match": {
+      "score": 95,
+      "blurb": "You've already led checkout reliability at GrabPay, so this role is practically asking you to come home and turn up the volume on your impac",
+      "via": "fallback"
+    }
   },
   {
     "id": "job-006",
@@ -63,7 +83,11 @@
     "url": "https://shopify.wd5.myworkdayjobs.com/ExternalCareerSite/job/SHOP-PS-2024-089",
     "industry": "E-commerce",
     "description": "Build the platform that powers commerce apps for millions of merchants globally. Own APIs, SDKs, and real-time systems for payments, fulfillment, and inventory. Work with React and Node at scale.",
-    "match": null
+    "match": {
+      "score": 88,
+      "blurb": "Your fintech and developer-tools chops at Grab and Shopee are a perfect match for building Shopify's merchant platform at scale, and I'd lov",
+      "via": "fallback"
+    }
   },
   {
     "id": "job-007",
@@ -74,7 +98,11 @@
     "url": "https://figma.wd5.myworkdayjobs.com/ExternalCareerSite/job/FIG-ENG-2024-134",
     "industry": "Software & Developer Tools",
     "description": "Architect infrastructure for a design platform used by 10M+ creators. Optimize real-time collaboration, WebSocket scalability, and render performance. Own systems supporting live multiplayer editing.",
-    "match": null
+    "match": {
+      "score": 82,
+      "blurb": "Your knack for slashing payment latency and scaling real-time systems at Grab makes you the perfect match to architect Figma's multiplayer i",
+      "via": "fallback"
+    }
   },
   {
     "id": "job-008",
@@ -85,6 +113,10 @@
     "url": "https://square.wd5.myworkdayjobs.com/ExternalCareerSite/job/SQ-COMERCE-2024-087",
     "industry": "Fintech",
     "description": "Build trust and reliability into Cash App's commerce and banking features. Ship payments, money transfers, and financial services to millions of users. Lead technical roadmap for core platform systems.",
-    "match": null
+    "match": {
+      "score": 92,
+      "blurb": "With your fintech chops slashing payment latency and shipping high-volume refunds, you're practically the cash flow whisperer Cash App's com",
+      "via": "fallback"
+    }
   }
 ]
