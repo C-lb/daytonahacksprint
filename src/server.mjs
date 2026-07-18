@@ -77,6 +77,7 @@ let realRunApply = null;
 const runApply = (application) =>
   (process.env.MOCK_MODE === '1' || !realRunApply) ? mockRunApply(application) : realRunApply(application);
 export const setRunApply = (fn) => { realRunApply = fn; };
+import('./apply.mjs').then(({ makeRunApply }) => setRunApply(makeRunApply({ emitStep, setStatus }))).catch((e) => console.log('apply pipeline not loaded:', e.message));
 
 app.post('/api/scrape', async (_q, res) => {
   const { scrapeAll } = await import('./scrape.mjs');
