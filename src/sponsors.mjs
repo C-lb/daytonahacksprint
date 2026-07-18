@@ -18,11 +18,11 @@ export const env = (() => {
 })();
 
 // Generic OpenAI-compatible chat — works for ai&, Kimi, and any /v1 endpoint.
-export async function chat({ base, key, model, messages, max_tokens = 512 }) {
+export async function chat({ base, key, model, messages, max_tokens = 512, temperature = 0.7 }) {
   const r = await fetch(base.replace(/\/$/, '') + '/chat/completions', {
     method: 'POST',
     headers: { Authorization: 'Bearer ' + key, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ model, messages, max_tokens }),
+    body: JSON.stringify({ model, messages, max_tokens, temperature }),
   });
   if (!r.ok) throw new Error(`chat ${r.status}: ${await r.text()}`);
   return (await r.json()).choices[0].message;
