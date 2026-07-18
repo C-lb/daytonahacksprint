@@ -19,6 +19,25 @@ pip install -r requirements.txt      # requests (+ daytona for the runtime path)
 Keys live in `.env` (already populated). Multi-key fallback: set `KEY_2`, `KEY_3`…
 and the LLM adapters rotate to the next on a dead key (402/429/401/403).
 
+## Team collaboration
+
+Code is shared; **API keys never are**. `.env` is git-ignored — each person keeps
+their own. New teammate onboarding:
+
+```bash
+git clone <repo-url> && cd daytona
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+cp .env.example .env          # then paste YOUR OWN keys into .env
+.venv/bin/python -m aggregator.smoke   # confirm your keys work
+```
+
+Rules of the road:
+- Never `git add .env` — the `.gitignore` blocks it, but don't force it.
+- Adding a new provider/setting? Add the **blank** key to `.env.example` and
+  commit that, so everyone knows to fill it.
+- Work on branches, merge via PR: `git checkout -b feat/researcher`.
+- Keep personal scratch in `scratch/` or `*.local` files — both git-ignored.
+
 ## Verify the wiring
 
 ```bash
