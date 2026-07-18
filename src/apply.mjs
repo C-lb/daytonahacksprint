@@ -16,7 +16,9 @@ export function makeRunApply({ emitStep, setStatus }) {
     emitStep(application.id, 'kimi is drafting your application…');
     const map = await buildFieldMap(profile, job);
     const b = profile.basics; // schema contract: demo-profile spec
-    map.fields = { firstName: b.first_name, lastName: b.last_name, email: b.email, phone: b.phone, ...map.fields };
+    // Profile basics are authoritative — spread Kimi's inferred fields first so the
+    // real contact details win over anything the model hallucinated.
+    map.fields = { ...map.fields, firstName: b.first_name, lastName: b.last_name, email: b.email, phone: b.phone };
 
     emitStep(application.id, 'spinning up daytona sandbox…');
     const daytona = new Daytona({ apiKey: env.DAYTONA_API_KEY, apiUrl: env.DAYTONA_API_URL });
