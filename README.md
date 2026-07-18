@@ -1,73 +1,54 @@
-# Daytona HackSprint — Aggregator
+# daytonahacksprint
 
-One facade over the six sponsor platforms. Each maps to a layer of the stack:
+Team project for the **Daytona HackSprint Singapore 2026** (AI Builders x Daytona, NUS, 18 Jul 2026).
 
-| Layer | Provider | Adapter | Auth |
-|-------|----------|---------|------|
-| Brain + sovereign compute | **ai&** (serves Kimi, GLM, DeepSeek…) | `llm.aiand()` | Bearer key (rotates) |
-| Orchestration / control | **Doubleword** | `llm.doubleword()` | Bearer key (rotates) |
-| Perception / data | **Oxylabs** residential proxy | `OxylabsProxy` | user/pass, geo in username |
-| Runtime / action | **Daytona** sandboxes | `DaytonaRuntime` | Bearer key |
-| Decentralised GPU scale | **Nosana** | `NosanaCloud` | `nos_` key |
+## The agentic loop we're building on
+```
+Oxylabs (ingest) → Kimi (reason) → Daytona (execute) → Nosana + ai& (compute)
+```
+Prize judging weighs **Sponsor Integration = coordination of Daytona + Kimi AI + Nosana**, plus Completeness (ship an MVP), Innovation, and Problem Solving. Demo is a **2-minute hard limit** and must show working code running inside the integrated stack.
 
 ## Setup
-
 ```bash
-pip install -r requirements.txt      # requests (+ daytona for the runtime path)
+git clone https://github.com/C-lb/daytonahacksprint
+cd daytonahacksprint
+npm install                 # (once we add deps)
+cp .env.example .env        # then fill in YOUR OWN keys
+node src/smoke.mjs          # verify your keys reach every sponsor
 ```
+`.env` is gitignored. **Never commit real keys.** Each collaborator uses their own.
 
-Keys live in `.env` (already populated). Multi-key fallback: set `KEY_2`, `KEY_3`…
-and the LLM adapters rotate to the next on a dead key (402/429/401/403).
+## Sponsor endpoints (verified working)
+| Sponsor | Base URL | Notes |
+|---|---|---|
+| ai& | `https://api.aiand.com/v1` | OpenAI-compatible; also `/v1/messages` (Anthropic). Serves Kimi, GLM, DeepSeek, Qwen, Gemma, GPT-OSS |
+| Kimi | `https://api.moonshot.ai/v1` | OpenAI-compatible; use a **direct** key for judging |
+| Daytona | `https://app.daytona.io/api` | Bearer key; sandbox runtime + MCP server |
+| Nosana | `https://dashboard.k8s.prd.nos.ci/api` | Bearer key; job/deployment API, needs SOL/NOS in vault. Swagger at `/api/swagger` |
+| Oxylabs | proxy `pr.oxylabs.io:7777` | residential proxy; port 7777 may be blocked on some networks (use hotspot / Web Scraper API over 443) |
 
-## Team collaboration
+## Gotchas from live key verification (save yourself the debug)
+- **ai& is behind Cloudflare** — a bot `User-Agent` gets **403 / error 1010**. Always send a browser UA (e.g. `Mozilla/5.0 (compatible; ...)`) on ai& calls.
+- **`kimi-k2.7-code` is a heavy reasoner** — it spends the whole `max_tokens` budget *thinking* and returns `content: null` on short budgets. For quick calls default to `deepseek-ai/deepseek-v4-flash`; give Kimi a big `max_tokens` for hard tasks.
+- **Kimi via ai&** works with no separate key (`AIAND_MODEL=moonshotai/kimi-k2.7-code`); a **direct** Moonshot key is only needed if judging wants "Kimi AI" called by name.
+- **Nosana** auth = `nos_` dashboard key (Bearer); inference is per-deployment (create a GPU job → it returns its own URL).
+- **Multi-key fallback**: add `*_API_KEY_2` in `.env`; helpers rotate on 402/429.
 
-Code is shared; **API keys never are**. `.env` is git-ignored — each person keeps
-their own. New teammate onboarding:
+## Collaboration workflow
+- **Source of truth = this repo.** Both push to `main` directly, commit small and often, `git pull` before you start editing.
+- Split work by plane to avoid stepping on each other (e.g. one owns ingest+reason, the other owns execute+compute).
+- **VS Code Live Share** for tight pairing / debugging the same file together — the host runs it with the host's keys, so the guest doesn't need their own env to join a session.
+- Keep the repo runnable end-to-end at all times; it's the judging artifact.
 
-```bash
-git clone <repo-url> && cd daytona
-python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
-cp .env.example .env          # then paste YOUR OWN keys into .env
-.venv/bin/python -m aggregator.smoke   # confirm your keys work
+## Layout
 ```
-
-Rules of the road:
-- Never `git add .env` — the `.gitignore` blocks it, but don't force it.
-- Adding a new provider/setting? Add the **blank** key to `.env.example` and
-  commit that, so everyone knows to fill it.
-- Work on branches, merge via PR: `git checkout -b feat/researcher`.
-- Keep personal scratch in `scratch/` or `*.local` files — both git-ignored.
-
-## Verify the wiring
-
-```bash
-python -m aggregator.smoke        # cheap health check of every key + fallback slot
-python -m aggregator.pipeline     # live self-check: brain answers + proxy exits
+src/
+  smoke.mjs        # pings every sponsor with your .env keys (Node)
+  sponsors.mjs     # thin clients for each sponsor (Node)
+aggregator/        # Python reference impl of the same sponsor clients
+  smoke.py         #   python3 -m aggregator.smoke  (uses the same .env)
 ```
-
-## Use it
-
-```python
-from aggregator import Aggregator
-agg = Aggregator()
-
-# brain (Kimi on ai&)
-print(agg.brain.text("Summarise the agentic stack in one line."))
-
-# scrape from a US residential IP, then reason over it
-print(agg.research("https://news.ycombinator.com", "Top 3 stories?"))
-
-# run AI-generated code in an isolated sandbox
-print(agg.runtime.run("print(2 ** 10)"))
-
-# decentralised GPU jobs
-print(agg.scale.jobs())
-```
-
-Canonical flow: **Oxylabs scrape → ai& reason → Daytona execute → Nosana scale**,
-with Doubleword available as an inference-control gateway.
-
-## Notes
-- ai& is behind Cloudflare — the adapter sends a browser `User-Agent` (bot UAs get 403 / error 1010).
-- Pick the ai& model with `AI_AND_MODEL` (default `moonshotai/kimi-k2.7-code`); any id from `agg.brain.models()` works.
-- Nosana inference is per-deployment: create a GPU job, it returns its own endpoint (store in `NOSANA_ENDPOINT`).
+> `src/` (Node) is the build target. `aggregator/` (Python) is the setup-phase
+> reference that verified every endpoint live (it still uses the original
+> `AI_AND_*` / `NOSANA_PRIVATE_KEY` naming). Pick Node for the real build; align
+> or delete `aggregator/` once decided.

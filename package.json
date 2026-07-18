@@ -1,0 +1,10 @@
+{
+  "name": "daytonahacksprint",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "Daytona HackSprint Singapore 2026 team project",
+  "scripts": {
+    "smoke": "node src/smoke.mjs"
+  }
+}
