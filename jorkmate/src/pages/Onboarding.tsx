@@ -273,14 +273,8 @@ export function Onboarding() {
                 <Field label="Preferred pronouns" optional htmlFor="ob-pronouns">
                   <TextInput id="ob-pronouns" placeholder="e.g. she/her" value={p.personal.pronouns} onChange={(e) => set({ personal: { ...p.personal, pronouns: e.target.value } })} />
                 </Field>
-                <div className="grid grid-cols-2 gap-3">
-                  <Field label="Earliest start date" htmlFor="ob-start">
-                    <TextInput id="ob-start" placeholder="e.g. May 2026" value={p.personal.earliestStart} onChange={(e) => set({ personal: { ...p.personal, earliestStart: e.target.value } })} />
-                  </Field>
-                  <Field label="Notice period" htmlFor="ob-notice">
-                    <TextInput id="ob-notice" placeholder="e.g. 1 month" value={p.personal.noticePeriod} onChange={(e) => set({ personal: { ...p.personal, noticePeriod: e.target.value } })} />
-                  </Field>
-                </div>
+                {/* Earliest start date + notice period live in step 6 (Work eligibility
+                    & defaults), which the apply agent reads. Not duplicated here. */}
                 <div className="space-y-2.5">
                   <Toggle label="Willing to relocate" checked={p.personal.willingToRelocate} onChange={(v) => set({ personal: { ...p.personal, willingToRelocate: v } })} />
                   <Toggle label="Willing to travel for work" checked={p.personal.willingToTravel} onChange={(v) => set({ personal: { ...p.personal, willingToTravel: v } })} />
