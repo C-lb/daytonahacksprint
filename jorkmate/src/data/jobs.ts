@@ -104,7 +104,7 @@ export const JOBS: Job[] = [
   },
   {
     id: 'job-atlas',
-    company: 'Atlas AI',
+    company: 'Manthropic',
     title: 'Applied Data Scientist',
     city: 'Singapore',
     country: 'Singapore',
@@ -120,7 +120,7 @@ export const JOBS: Job[] = [
     summary:
       'Own the modelling lifecycle for logistics-optimisation products: framing problems with customers, training and evaluating models, and shipping them behind real APIs.',
     companyDescription:
-      'Atlas AI is a fictional Series C startup applying machine learning to port logistics and supply-chain forecasting across Asian shipping lanes.',
+      'Manthropic is a fictional Series C startup applying machine learning to port logistics and supply-chain forecasting across Asian shipping lanes.',
     responsibilities: [
       'Design and train forecasting models on shipping telemetry',
       'Run offline and online evaluations with clear metrics',
@@ -150,11 +150,11 @@ export const JOBS: Job[] = [
     rating: 4.6,
     reviewCount: 212,
     reviewExcerpt: 'Small team, huge ownership — my models ship to real ports.',
-    brand: { initials: 'At', from: '#2f7a6b', to: '#8fd0b8', pattern: 'waves' },
+    brand: { initials: 'Ma', from: '#2f7a6b', to: '#8fd0b8', pattern: 'waves' },
   },
   {
     id: 'job-stripewave',
-    company: 'Stripewave',
+    company: 'Snipe Payments',
     title: 'Product Manager, Payments',
     city: 'Hong Kong',
     country: 'Hong Kong',
@@ -170,7 +170,7 @@ export const JOBS: Job[] = [
     summary:
       'Own the merchant-payments roadmap for North Asia: cross-border settlement, local payment methods, and the merchant dashboard used by thousands of businesses.',
     companyDescription:
-      'Stripewave is a fictional payments infrastructure company powering checkout and settlement for online businesses across Asia. Product managers own metrics end to end.',
+      'Snipe Payments is a fictional payments infrastructure company powering checkout and settlement for online businesses across Asia. Product managers own metrics end to end.',
     responsibilities: [
       'Define and ship the North Asia payments roadmap',
       'Work with engineering on settlement and payout flows',
@@ -200,7 +200,7 @@ export const JOBS: Job[] = [
     rating: 4.4,
     reviewCount: 689,
     reviewExcerpt: 'PMs here genuinely own their area — no ticket-factory feeling.',
-    brand: { initials: 'Sw', from: '#635bff', to: '#9c8cff', pattern: 'diagonal' },
+    brand: { initials: 'Sp', from: '#635bff', to: '#9c8cff', pattern: 'diagonal' },
   },
   {
     id: 'job-whiterock',
@@ -306,7 +306,7 @@ export const JOBS: Job[] = [
   },
   {
     id: 'job-lattice',
-    company: 'Lattice Security',
+    company: 'Palantir',
     title: 'Cybersecurity Engineer',
     city: 'London',
     country: 'United Kingdom',
@@ -322,7 +322,7 @@ export const JOBS: Job[] = [
     summary:
       'Defend a fast-growing SaaS platform: detection engineering, incident response, and hardening cloud infrastructure used by regulated customers.',
     companyDescription:
-      'Lattice Security is a fictional scale-up providing zero-trust access tooling to fintech and healthcare companies across Europe.',
+      'Palantir is a fictional scale-up providing zero-trust access tooling to fintech and healthcare companies across Europe.',
     responsibilities: [
       'Build detections and response runbooks for cloud workloads',
       'Lead incident response and post-incident reviews',
@@ -352,11 +352,11 @@ export const JOBS: Job[] = [
     rating: 4.3,
     reviewCount: 178,
     reviewExcerpt: 'Leadership actually funds security work instead of just talking about it.',
-    brand: { initials: 'La', from: '#1f6f5c', to: '#64b6a1', pattern: 'diagonal' },
+    brand: { initials: 'Pa', from: '#1f6f5c', to: '#64b6a1', pattern: 'diagonal' },
   },
   {
     id: 'job-meridian',
-    company: 'Meridian Markets',
+    company: 'Super Markets',
     title: 'Asset Management Analyst',
     city: 'New York',
     country: 'United States',
@@ -373,7 +373,7 @@ export const JOBS: Job[] = [
     summary:
       'Support portfolio managers on a multi-asset income strategy: screening, monitoring holdings, and building the analytics the desk runs on.',
     companyDescription:
-      'Meridian Markets is a fictional asset manager overseeing diversified income strategies for institutions and pension funds, headquartered in Midtown Manhattan.',
+      'Super Markets is a fictional asset manager overseeing diversified income strategies for institutions and pension funds, headquartered in Midtown Manhattan.',
     responsibilities: [
       'Screen equities and credit against strategy criteria',
       'Maintain portfolio monitoring dashboards',
@@ -403,11 +403,11 @@ export const JOBS: Job[] = [
     rating: 4.2,
     reviewCount: 534,
     reviewExcerpt: 'Analysts sit close to PMs — you hear the why behind every trade.',
-    brand: { initials: 'Mm', from: '#7a4df0', to: '#b79cf7', pattern: 'rings' },
+    brand: { initials: 'Sm', from: '#7a4df0', to: '#b79cf7', pattern: 'rings' },
   },
   {
     id: 'job-northstar',
-    company: 'Northstar Capital',
+    company: 'Onion Equity Capital',
     title: 'Venture Capital Associate',
     city: 'New York',
     country: 'United States',
@@ -423,7 +423,7 @@ export const JOBS: Job[] = [
     summary:
       'Source and evaluate Series A–B investments in fintech and applied AI. Associates run diligence, build conviction memos, and support portfolio companies post-investment.',
     companyDescription:
-      'Northstar Capital is a fictional early-growth venture firm with USD 1.2B under management, investing across fintech, AI infrastructure, and vertical SaaS.',
+      'Onion Equity Capital is a fictional early-growth venture firm with USD 1.2B under management, investing across fintech, AI infrastructure, and vertical SaaS.',
     responsibilities: [
       'Source companies through networks, data, and cold outreach',
       'Lead market and financial diligence on live deals',
@@ -453,11 +453,11 @@ export const JOBS: Job[] = [
     rating: 4.7,
     reviewCount: 96,
     reviewExcerpt: 'Tiny team, real investment voice — associates present at partner meetings.',
-    brand: { initials: 'Nc', from: '#0f3057', to: '#e5573f', pattern: 'dots' },
+    brand: { initials: 'On', from: '#0f3057', to: '#e5573f', pattern: 'dots' },
   },
   {
     id: 'job-vectorpay',
-    company: 'VectorPay',
+    company: 'John Pork Pay',
     title: 'Fintech Operations Specialist',
     city: 'New York',
     country: 'United States',
@@ -473,7 +473,7 @@ export const JOBS: Job[] = [
     summary:
       'Keep money moving: reconcile settlement flows, resolve payment exceptions, and build the operational playbooks a scaling payments company runs on.',
     companyDescription:
-      'VectorPay is a fictional B2B payments company processing payouts for marketplaces and gig platforms across North America.',
+      'John Pork Pay is a fictional B2B payments company processing payouts for marketplaces and gig platforms across North America.',
     responsibilities: [
       'Reconcile daily settlement and payout files',
       'Investigate and resolve payment exceptions',
@@ -503,7 +503,7 @@ export const JOBS: Job[] = [
     rating: 4.0,
     reviewCount: 241,
     reviewExcerpt: 'Ops is treated as a product here, not a cost centre.',
-    brand: { initials: 'Vp', from: '#c2402c', to: '#f0a04f', pattern: 'waves' },
+    brand: { initials: 'Jp', from: '#c2402c', to: '#f0a04f', pattern: 'waves' },
   },
 ]
 
