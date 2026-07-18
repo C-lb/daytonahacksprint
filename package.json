@@ -6,6 +6,7 @@
   "description": "Daytona HackSprint Singapore 2026 team project",
   "scripts": {
     "smoke": "node src/smoke.mjs",
+    "ask": "node src/ask.mjs",
     "dev": "node --watch src/agent.mjs",
     "start": "node src/agent.mjs"
   },
