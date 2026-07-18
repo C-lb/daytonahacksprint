@@ -1,23 +1,48 @@
 @import "tailwindcss";
 
+/*
+ * Anti-vibecode house standard (see docs/superpowers + team reference demo):
+ * flat near-black canvas, neutral surfaces that lift with a lit top edge and a
+ * soft diffuse shadow (no hard borders), exactly ONE accent — Jorkmate coral —
+ * one sans family, 17px base, sentence case, colour only where it carries meaning.
+ * Legacy token names (cream/charcoal/…) are kept and remapped so existing
+ * markup lands on the new system.
+ */
 @theme {
-  --color-cream: #faf6f0;
-  --color-cream-deep: #f3ecdf;
+  /* canvas + surfaces */
+  --color-cream: #0c0c0e; /* page background */
+  --color-cream-deep: #202023; /* surface-2: wells, pills, progress tracks */
+  --color-surface: #161618; /* surface-1: cards, nav, inputs */
+  --color-surface-3: #2a2a2e;
+  /* ink */
+  --color-charcoal: #f4f4f5; /* primary ink */
+  --color-charcoal-soft: #a1a1aa; /* secondary ink */
+  /* the single accent */
   --color-coral: #e5573f;
-  --color-coral-deep: #c2402c;
-  --color-coral-soft: #fbe9e4;
-  --color-charcoal: #2b2620;
-  --color-charcoal-soft: #6b6259;
-  --color-sage: #5f7a61;
-  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --color-coral-deep: #ff8a75; /* accent ink readable on dark + soft bg */
+  --color-coral-soft: rgba(229, 87, 63, 0.14);
+  /* semantic (soft backgrounds carry the meaning, per reference) */
+  --color-sage: #3ecf8e;
+
+  --font-sans: 'Plus Jakarta Sans', 'DM Sans', -apple-system, system-ui, sans-serif;
+  --font-display: 'Plus Jakarta Sans', 'DM Sans', -apple-system, system-ui, sans-serif;
+}
+
+:root {
+  --line: rgba(255, 255, 255, 0.06);
+  --raise: inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.45);
+  --shadow-av: 0 14px 34px -18px rgba(0, 0, 0, 0.55);
+  --shadow-pop: 0 24px 50px -18px rgba(0, 0, 0, 0.72);
 }
 
 html,
 body {
-  background: #efe8dc;
+  background: #0a0a0b;
   color: var(--color-charcoal);
   font-family: var(--font-sans);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.55;
   overscroll-behavior-y: none;
 }
 
@@ -28,11 +53,18 @@ body {
 
 .font-display {
   font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+}
+
+/* surfaces lift with a lit top edge + diffuse shadow instead of hard borders */
+.raised {
+  box-shadow: var(--raise), var(--shadow-av);
 }
 
 /* Visible focus for keyboard users */
 :focus-visible {
-  outline: 3px solid var(--color-coral);
+  outline: 2px solid var(--color-coral);
   outline-offset: 2px;
   border-radius: 6px;
 }
@@ -43,7 +75,7 @@ body {
   100% { background-position: 200% 0; }
 }
 .skeleton {
-  background: linear-gradient(90deg, #eee5d8 25%, #f7f1e7 50%, #eee5d8 75%);
+  background: linear-gradient(90deg, #202023 25%, #2a2a2e 50%, #202023 75%);
   background-size: 200% 100%;
   animation: shimmer 1.4s infinite;
 }

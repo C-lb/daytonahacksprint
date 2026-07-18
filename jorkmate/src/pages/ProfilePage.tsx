@@ -166,7 +166,7 @@ export function ProfilePage() {
         <Row label="Workplace accommodations" value={tri(p.accessibility.workplaceAccommodations)} />
         <p className="mt-2 text-xs leading-relaxed text-charcoal-soft">
           Private notes are never shown on job cards. The agent only ever uses answers you selected
-          explicitly — Jorkmate never infers a disability or support requirement.
+          explicitly, Jorkmate never infers a disability or support requirement.
         </p>
       </SectionCard>
 
@@ -184,7 +184,7 @@ export function ProfilePage() {
             dispatch({ type: 'SIGN_OUT' })
             navigate('/')
           }}
-          className="flex w-full items-center justify-center gap-2 rounded-full border border-charcoal/20 bg-white py-3.5 text-sm font-bold text-charcoal active:scale-[0.98]"
+          className="flex w-full items-center justify-center gap-2 rounded-full border border-charcoal/20 bg-surface py-3.5 text-sm font-bold text-charcoal active:scale-[0.98]"
         >
           <UserRoundCog size={15} aria-hidden="true" /> Switch demo persona
         </button>
@@ -194,7 +194,7 @@ export function ProfilePage() {
             dispatch({ type: 'SIGN_OUT' })
             navigate('/')
           }}
-          className="flex w-full items-center justify-center gap-2 rounded-full border border-charcoal/20 bg-white py-3.5 text-sm font-bold text-charcoal active:scale-[0.98]"
+          className="flex w-full items-center justify-center gap-2 rounded-full border border-charcoal/20 bg-surface py-3.5 text-sm font-bold text-charcoal active:scale-[0.98]"
         >
           <LogOut size={15} aria-hidden="true" /> Sign out
         </button>

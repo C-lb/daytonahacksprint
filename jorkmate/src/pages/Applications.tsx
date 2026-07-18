@@ -82,7 +82,7 @@ function ApplicationCard({ app, job }: { app: Application; job: Job }) {
   }
 
   return (
-    <li className="overflow-hidden rounded-2xl bg-white shadow-sm">
+    <li className="overflow-hidden rounded-2xl bg-surface raised">
       <button
         type="button"
         onClick={() => setOpen(!open)}
@@ -236,7 +236,7 @@ function LiveCard({ app, job }: { app: LiveApplication; job: Job | undefined }) 
     : null
 
   return (
-    <li className="overflow-hidden rounded-2xl bg-white shadow-sm">
+    <li className="overflow-hidden rounded-2xl bg-surface raised">
       <button type="button" onClick={() => setOpen(!open)} aria-expanded={open} className="w-full p-3.5 text-left">
         <div className="flex items-center gap-3">
           {job ? (
@@ -351,7 +351,7 @@ export function Applications() {
         <p className="text-xs text-charcoal-soft">
           {live.enabled
             ? 'Live agents run on the team server; simulated agents run in-browser.'
-            : 'Every submission is simulated — demo mode.'}
+            : 'Every submission is simulated, demo mode.'}
         </p>
       </header>
 
@@ -363,7 +363,7 @@ export function Applications() {
             aria-selected={tab === t.id}
             onClick={() => setTab(t.id)}
             className={`rounded-full px-3.5 py-1.5 text-[13px] font-semibold transition-colors ${
-              tab === t.id ? 'bg-charcoal text-cream' : 'bg-white text-charcoal-soft hover:text-charcoal'
+              tab === t.id ? 'bg-charcoal text-cream' : 'bg-surface text-charcoal-soft hover:text-charcoal'
             }`}
           >
             {t.label}
@@ -388,7 +388,7 @@ export function Applications() {
           type="button"
           disabled={!anySimComplete}
           onClick={() => dispatch({ type: 'CLEAR_COMPLETED', now: Date.now() })}
-          className="flex items-center gap-1.5 rounded-full border border-charcoal/20 bg-white px-3.5 py-2 text-xs font-bold text-charcoal active:scale-95 disabled:opacity-40"
+          className="flex items-center gap-1.5 rounded-full border border-charcoal/20 bg-surface px-3.5 py-2 text-xs font-bold text-charcoal active:scale-95 disabled:opacity-40"
         >
           <Eraser size={14} aria-hidden="true" /> Clear completed
         </button>

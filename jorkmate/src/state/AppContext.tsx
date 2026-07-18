@@ -213,7 +213,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   // Detect the team server once; while it's up, poll deck + applications.
   // Steps are persisted server-side into applications.json on every emitStep,
-  // so polling GET /api/applications carries full timelines — no SSE needed here.
+  // so polling GET /api/applications carries full timelines, no SSE needed here.
   useEffect(() => {
     let cancelled = false
     detectServer().then((up) => !cancelled && setLiveEnabled(up))

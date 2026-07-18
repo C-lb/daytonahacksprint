@@ -13,8 +13,8 @@ import { ProfilePage } from './pages/ProfilePage'
 /** Desktop: phone-width shell. Mobile: full viewport. */
 function Shell() {
   return (
-    <div className="flex min-h-dvh justify-center bg-[#efe8dc] md:py-6">
-      <div className="relative flex h-dvh w-full max-w-[430px] flex-col overflow-hidden bg-cream shadow-2xl shadow-charcoal/20 md:h-[calc(100dvh-3rem)] md:rounded-[2.2rem] md:border md:border-charcoal/10">
+    <div className="flex min-h-dvh justify-center bg-[#0a0a0b] md:py-6">
+      <div className="relative flex h-dvh w-full max-w-[430px] flex-col overflow-hidden bg-cream shadow-2xl shadow-black/60 md:h-[calc(100dvh-3rem)] md:rounded-[2.2rem] md:border md:border-white/10">
         <Toasts />
         <Outlet />
       </div>

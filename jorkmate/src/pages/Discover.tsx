@@ -41,14 +41,14 @@ function TopCard({
       <motion.div
         aria-hidden="true"
         style={{ opacity: skipOpacity }}
-        className="pointer-events-none absolute left-5 top-6 -rotate-12 rounded-xl border-4 border-charcoal bg-white/85 px-4 py-1.5 text-2xl font-black tracking-widest text-charcoal"
+        className="pointer-events-none absolute left-5 top-6 -rotate-12 rounded-xl border-4 border-charcoal bg-surface/85 px-4 py-1.5 text-2xl font-black tracking-widest text-charcoal"
       >
         SKIP
       </motion.div>
       <motion.div
         aria-hidden="true"
         style={{ opacity: applyOpacity }}
-        className="pointer-events-none absolute right-5 top-6 rotate-12 rounded-xl border-4 border-coral bg-white/85 px-4 py-1.5 text-2xl font-black tracking-widest text-coral"
+        className="pointer-events-none absolute right-5 top-6 rotate-12 rounded-xl border-4 border-coral bg-surface/85 px-4 py-1.5 text-2xl font-black tracking-widest text-coral"
       >
         APPLY
       </motion.div>
@@ -124,7 +124,7 @@ export function Discover() {
               filter: 'brightness(0.97)',
             }}
           >
-            <div className="h-full rounded-3xl bg-white shadow-lg" />
+            <div className="h-full rounded-3xl bg-surface raised" />
           </div>
         ))}
 
@@ -177,7 +177,7 @@ export function Discover() {
           aria-label="Skip this job"
           disabled={!top}
           onClick={() => swipe('left')}
-          className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-charcoal/15 bg-white text-charcoal shadow-lg transition-transform hover:border-charcoal/40 active:scale-90 disabled:opacity-40"
+          className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-charcoal/15 bg-surface text-charcoal raised transition-transform hover:border-charcoal/40 active:scale-90 disabled:opacity-40"
         >
           <X size={30} aria-hidden="true" />
         </button>
@@ -186,7 +186,7 @@ export function Discover() {
           aria-label="Apply to this job"
           disabled={!top}
           onClick={() => swipe('right')}
-          className="flex h-16 w-16 items-center justify-center rounded-full bg-coral text-white shadow-lg shadow-coral/30 transition-transform hover:bg-coral-deep active:scale-90 disabled:opacity-40"
+          className="flex h-16 w-16 items-center justify-center rounded-full bg-coral text-white raised transition-transform hover:bg-coral-deep active:scale-90 disabled:opacity-40"
         >
           <Check size={30} aria-hidden="true" />
         </button>

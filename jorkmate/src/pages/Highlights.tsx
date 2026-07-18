@@ -22,7 +22,7 @@ function HighlightRow({
   const { state } = useApp()
   const match = matchScore(state.profile!, job)
   return (
-    <li className="rounded-2xl bg-white p-3 shadow-sm">
+    <li className="rounded-2xl bg-surface p-3 raised">
       <div className="flex items-center gap-3">
         <span className="font-display w-6 shrink-0 text-center text-lg font-bold text-charcoal-soft">
           {rank}

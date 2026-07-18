@@ -17,7 +17,7 @@ export class ErrorBoundary extends Component<{ children: ReactNode }, State> {
         <div className="flex min-h-dvh flex-col items-center justify-center bg-cream p-8 text-center">
           <p className="font-display text-2xl font-bold text-charcoal">Something wobbled.</p>
           <p className="mt-2 text-sm text-charcoal-soft">
-            The demo hit an unexpected error. Reload to continue — your saved data is safe.
+            The demo hit an unexpected error. Reload to continue, your saved data is safe.
           </p>
           <button
             type="button"

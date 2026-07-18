@@ -109,11 +109,11 @@ export function Onboarding() {
         (c) => p.eligibility.workAuthorization[c] === undefined,
       )
       if (unanswered.length)
-        return `Answer work authorisation for ${unanswered.join(', ')} — the agent never infers this`
+        return `Answer work authorisation for ${unanswered.join(', ')}, the agent never infers this`
       if (p.eligibility.backgroundCheckConsent === null)
-        return 'Answer the background-check question — the agent never infers this'
+        return 'Answer the background-check question, the agent never infers this'
       if (!p.eligibility.desiredCompensation.trim())
-        return 'Add your desired compensation — the agent never infers this'
+        return 'Add your desired compensation, the agent never infers this'
     }
     return ''
   }
@@ -130,7 +130,7 @@ export function Onboarding() {
   function finish() {
     dispatch({ type: 'COMPLETE_ONBOARDING', profile: p })
     remove(KEYS.onboardingDraft)
-    showToast(editing ? 'Profile updated' : 'Profile saved — happy matching')
+    showToast(editing ? 'Profile updated' : 'Profile saved, happy matching')
     navigate(editing ? '/app/profile' : '/app/discover')
   }
 
@@ -193,7 +193,7 @@ export function Onboarding() {
           set(stored)
           setAnalysing(false)
           setResumeDone(true)
-          showToast('Résumé parsed by Kimi — steps prefilled')
+          showToast('Résumé parsed by Kimi, steps prefilled')
         })
         .catch(() => {
           // Kimi unavailable/failed: keep the simulated path so onboarding never stalls
@@ -326,7 +326,7 @@ export function Onboarding() {
             {step === 2 && (
               <>
                 {p.experience.map((x, i) => (
-                  <div key={x.id} className="mb-4 rounded-2xl bg-white p-4 shadow-sm">
+                  <div key={x.id} className="mb-4 rounded-2xl bg-surface p-4 raised">
                     <div className="mb-2 flex items-center justify-between">
                       <p className="text-sm font-bold text-charcoal">Experience {i + 1}</p>
                       <button type="button" aria-label={`Remove experience ${i + 1}`} onClick={() => set({ experience: p.experience.filter((e) => e.id !== x.id) })} className="text-charcoal-soft hover:text-coral-deep">
@@ -385,7 +385,7 @@ export function Onboarding() {
             {step === 3 && (
               <>
                 {p.education.map((e, i) => (
-                  <div key={e.id} className="mb-4 rounded-2xl bg-white p-4 shadow-sm">
+                  <div key={e.id} className="mb-4 rounded-2xl bg-surface p-4 raised">
                     <div className="mb-2 flex items-center justify-between">
                       <p className="text-sm font-bold text-charcoal">Education {i + 1}</p>
                       <button type="button" aria-label={`Remove education ${i + 1}`} onClick={() => set({ education: p.education.filter((x) => x.id !== e.id) })} className="text-charcoal-soft hover:text-coral-deep">
@@ -429,7 +429,7 @@ export function Onboarding() {
 
                 <h3 className="font-display mb-2 text-base font-bold text-charcoal">Certifications</h3>
                 {p.certifications.map((c, i) => (
-                  <div key={c.id} className="mb-3 rounded-2xl bg-white p-4 shadow-sm">
+                  <div key={c.id} className="mb-3 rounded-2xl bg-surface p-4 raised">
                     <div className="mb-2 flex items-center justify-between">
                       <p className="text-sm font-bold text-charcoal">Certification {i + 1}</p>
                       <button type="button" aria-label={`Remove certification ${i + 1}`} onClick={() => set({ certifications: p.certifications.filter((x) => x.id !== c.id) })} className="text-charcoal-soft hover:text-coral-deep">
@@ -472,7 +472,7 @@ export function Onboarding() {
                 </Field>
 
                 <h3 className="font-display mb-2 mt-6 text-base font-bold text-charcoal">Résumé</h3>
-                <label className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-charcoal/20 bg-white p-6 text-center hover:border-coral">
+                <label className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-charcoal/20 bg-surface p-6 text-center hover:border-coral">
                   <input
                     type="file"
                     accept=".pdf,.doc,.docx"
@@ -497,7 +497,7 @@ export function Onboarding() {
                     <>
                       <FileUp size={22} className="text-charcoal-soft" aria-hidden="true" />
                       <span className="text-sm font-semibold text-charcoal">Upload résumé</span>
-                      <span className="text-xs text-charcoal-soft">Simulated — only the filename is stored, never the file.</span>
+                      <span className="text-xs text-charcoal-soft">Simulated, only the filename is stored, never the file.</span>
                     </>
                   )}
                 </label>
@@ -525,10 +525,10 @@ export function Onboarding() {
               <>
                 <p className="mb-4 rounded-xl bg-coral-soft p-3 text-xs leading-relaxed text-coral-deep">
                   The agent never infers work authorisation, sponsorship, legal declarations, or
-                  compensation. Answer explicitly — only your answers are ever used.
+                  compensation. Answer explicitly, only your answers are ever used.
                 </p>
                 {COUNTRIES.map((c) => (
-                  <div key={c} className="mb-3 rounded-2xl bg-white p-4 shadow-sm">
+                  <div key={c} className="mb-3 rounded-2xl bg-surface p-4 raised">
                     <p className="mb-2 text-sm font-bold text-charcoal">{c}</p>
                     <div className="mb-2">
                       <p className="mb-1.5 text-xs font-semibold text-charcoal-soft">Authorised to work here?</p>
@@ -550,10 +550,10 @@ export function Onboarding() {
                             className={`rounded-full border px-4 py-1.5 text-sm font-medium ${
                               p.eligibility.workAuthorization[c] === v
                                 ? 'border-coral bg-coral text-white'
-                                : 'border-charcoal/20 bg-white text-charcoal'
+                                : 'border-charcoal/20 bg-surface text-charcoal'
                             }`}
                           >
-                            {v ? 'Yes' : 'No — needs sponsorship'}
+                            {v ? 'Yes' : 'No, needs sponsorship'}
                           </button>
                         ))}
                       </div>
@@ -599,7 +599,7 @@ export function Onboarding() {
                         className={`rounded-full border px-4 py-1.5 text-sm font-medium ${
                           p.eligibility.preferredContact === m
                             ? 'border-charcoal bg-charcoal text-cream'
-                            : 'border-charcoal/20 bg-white text-charcoal'
+                            : 'border-charcoal/20 bg-surface text-charcoal'
                         }`}
                       >
                         {m}
@@ -629,7 +629,7 @@ export function Onboarding() {
                     <TextArea
                       aria-label="Private interview accommodation notes"
                       className="mt-2"
-                      placeholder="Private instructions — shared only when you apply"
+                      placeholder="Private instructions, shared only when you apply"
                       value={p.accessibility.interviewNotes}
                       onChange={(e) => set({ accessibility: { ...p.accessibility, interviewNotes: e.target.value } })}
                     />
@@ -641,7 +641,7 @@ export function Onboarding() {
                     <TextArea
                       aria-label="Private workplace accommodation notes"
                       className="mt-2"
-                      placeholder="Private instructions — shared only when you apply"
+                      placeholder="Private instructions, shared only when you apply"
                       value={p.accessibility.workplaceNotes}
                       onChange={(e) => set({ accessibility: { ...p.accessibility, workplaceNotes: e.target.value } })}
                     />
@@ -672,7 +672,7 @@ export function Onboarding() {
                           className={`rounded-full border px-3.5 py-1.5 text-sm font-medium ${
                             (opt === 'Prefer not to say') === (p.demographics[key] === 'Prefer not to say')
                               ? 'border-charcoal bg-charcoal text-cream'
-                              : 'border-charcoal/20 bg-white text-charcoal'
+                              : 'border-charcoal/20 bg-surface text-charcoal'
                           }`}
                         >
                           {opt}
@@ -692,19 +692,19 @@ export function Onboarding() {
                 ))}
 
                 <h3 className="font-display mb-2 mt-6 text-base font-bold text-charcoal">Review</h3>
-                <div className="rounded-2xl bg-white p-4 text-sm shadow-sm">
+                <div className="rounded-2xl bg-surface p-4 text-sm raised">
                   <p className="font-bold text-charcoal">{p.personal.fullName}</p>
                   <p className="text-charcoal-soft">{p.personal.email} · {p.personal.city}, {p.personal.country}</p>
                   <p className="mt-2 text-charcoal">
-                    <span className="font-semibold">Wants:</span> {p.preferences.industries.join(', ') || '—'} in{' '}
-                    {p.preferences.locations.join(', ') || '—'}
+                    <span className="font-semibold">Wants:</span> {p.preferences.industries.join(', ') || 'none yet'} in{' '}
+                    {p.preferences.locations.join(', ') || 'none yet'}
                   </p>
                   <p className="text-charcoal">
-                    <span className="font-semibold">Modes:</span> {p.preferences.workModes.join(', ') || '—'} ·{' '}
-                    {p.preferences.employmentTypes.join(', ') || '—'}
+                    <span className="font-semibold">Modes:</span> {p.preferences.workModes.join(', ') || 'none yet'} ·{' '}
+                    {p.preferences.employmentTypes.join(', ') || 'none yet'}
                   </p>
                   <p className="text-charcoal">
-                    <span className="font-semibold">Skills:</span> {p.skills.slice(0, 6).join(', ') || '—'}
+                    <span className="font-semibold">Skills:</span> {p.skills.slice(0, 6).join(', ') || 'none yet'}
                   </p>
                   <p className="text-charcoal">
                     <span className="font-semibold">Experience:</span> {p.experience.length} · <span className="font-semibold">Education:</span> {p.education.length}
@@ -736,7 +736,7 @@ export function Onboarding() {
           type="button"
           disabled={step === 0}
           onClick={() => setStep(step - 1)}
-          className="rounded-full border border-charcoal/20 bg-white px-6 py-3.5 text-sm font-bold text-charcoal active:scale-95 disabled:opacity-40"
+          className="rounded-full border border-charcoal/20 bg-surface px-6 py-3.5 text-sm font-bold text-charcoal active:scale-95 disabled:opacity-40"
         >
           Back
         </button>
@@ -744,7 +744,7 @@ export function Onboarding() {
           <button
             type="button"
             onClick={next}
-            className="flex-1 rounded-full bg-coral py-3.5 text-sm font-bold text-white shadow-lg shadow-coral/25 active:scale-[0.98]"
+            className="flex-1 rounded-full bg-coral py-3.5 text-sm font-bold text-white raised active:scale-[0.98]"
           >
             Continue
           </button>
@@ -752,7 +752,7 @@ export function Onboarding() {
           <button
             type="button"
             onClick={finish}
-            className="flex-1 rounded-full bg-coral py-3.5 text-sm font-bold text-white shadow-lg shadow-coral/25 active:scale-[0.98]"
+            className="flex-1 rounded-full bg-coral py-3.5 text-sm font-bold text-white raised active:scale-[0.98]"
           >
             {editing ? 'Save profile' : 'Start matching'}
           </button>

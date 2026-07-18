@@ -43,16 +43,16 @@ function ListSection({ title, items }: { title: string; items?: string[] }) {
   )
 }
 
-/** Full job content. The card body scrolls vertically — there is no separate job-detail screen. */
+/** Full job content. The card body scrolls vertically, there is no separate job-detail screen. */
 export function JobCard({ job, match }: { job: Job; match: number }) {
   return (
     <article
       aria-label={`${job.title} at ${job.company}`}
-      className="flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-xl shadow-charcoal/10"
+      className="flex h-full flex-col overflow-hidden rounded-3xl bg-surface raised"
     >
       <div className="relative shrink-0">
         <CompanyPanel job={job} />
-        <div className="absolute left-4 top-4 flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1 text-sm font-bold text-charcoal backdrop-blur">
+        <div className="absolute left-4 top-4 flex items-center gap-1.5 rounded-full bg-surface/90 px-3 py-1 text-sm font-bold text-charcoal backdrop-blur">
           {match}% match
         </div>
         {(job.popularity ?? 0) >= 85 && (

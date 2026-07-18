@@ -44,7 +44,7 @@ export function Welcome() {
           className="flex flex-1 flex-col"
         >
           <div className="flex flex-1 flex-col items-center justify-center text-center">
-            <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-coral shadow-lg shadow-coral/30">
+            <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-coral raised">
               <Heart size={30} className="fill-white text-white" aria-hidden="true" />
             </div>
             <h1 className="font-display mt-6 text-5xl font-bold tracking-tight text-charcoal">
@@ -52,7 +52,7 @@ export function Welcome() {
             </h1>
             <p className="font-display mt-2 text-xl italic text-coral-deep">Meet your next move.</p>
             <p className="mt-6 max-w-[300px] text-[15px] leading-relaxed text-charcoal-soft">
-              Tell us about yourself once. Then swipe through hand-picked roles — swipe right and a
+              Tell us about yourself once. Then swipe through hand-picked roles, swipe right and a
               Jorkmate agent assembles and submits the application while you keep browsing.
             </p>
           </div>
@@ -61,14 +61,14 @@ export function Welcome() {
             <button
               type="button"
               onClick={() => setView('signup')}
-              className="w-full rounded-full bg-coral py-4 text-base font-bold text-white shadow-lg shadow-coral/25 transition-transform active:scale-[0.98]"
+              className="w-full rounded-full bg-coral py-4 text-base font-bold text-white raised transition-transform active:scale-[0.98]"
             >
               Create account
             </button>
             <button
               type="button"
               onClick={() => setView('personas')}
-              className="w-full rounded-full border-2 border-charcoal/15 bg-white py-3.5 text-base font-bold text-charcoal transition-transform active:scale-[0.98]"
+              className="w-full rounded-full border-2 border-charcoal/15 bg-surface py-3.5 text-base font-bold text-charcoal transition-transform active:scale-[0.98]"
             >
               Try a demo profile
             </button>
@@ -139,12 +139,12 @@ export function Welcome() {
             </Field>
             <button
               type="submit"
-              className="mt-2 w-full rounded-full bg-coral py-4 text-base font-bold text-white shadow-lg shadow-coral/25 active:scale-[0.98]"
+              className="mt-2 w-full rounded-full bg-coral py-4 text-base font-bold text-white raised active:scale-[0.98]"
             >
               Continue to onboarding
             </button>
             <p className="mt-3 text-center text-xs text-charcoal-soft">
-              Simulated sign-up — no real authentication, nothing leaves your device.
+              Simulated sign-up, no real authentication, nothing leaves your device.
             </p>
           </form>
         </motion.div>
@@ -161,7 +161,7 @@ export function Welcome() {
           </button>
           <h2 className="font-display text-3xl font-bold text-charcoal">Pick a persona</h2>
           <p className="mb-6 mt-1 text-sm text-charcoal-soft">
-            Fully onboarded demo profiles — jump straight to swiping.
+            Fully onboarded demo profiles, jump straight to swiping.
           </p>
           <div className="space-y-3">
             {PERSONAS.map((p) => (
@@ -169,7 +169,7 @@ export function Welcome() {
                 key={p.id}
                 type="button"
                 onClick={() => pickPersona(p.id)}
-                className="w-full overflow-hidden rounded-2xl bg-white text-left shadow-md transition-transform active:scale-[0.98]"
+                className="w-full overflow-hidden rounded-2xl bg-surface text-left raised transition-transform active:scale-[0.98]"
               >
                 <div
                   className="h-2"

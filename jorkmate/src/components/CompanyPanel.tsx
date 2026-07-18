@@ -1,6 +1,6 @@
 import type { Job } from '../types'
 
-/** CSS/SVG company identity panel — no remote logos, per demo constraints. */
+/** CSS/SVG company identity panel, no remote logos, per demo constraints. */
 export function CompanyPanel({ job, compact = false }: { job: Job; compact?: boolean }) {
   const { initials, from, to, pattern } = job.brand
   const pid = `${job.id}-${pattern}`

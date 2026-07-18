@@ -29,7 +29,7 @@ export function BottomNav() {
   return (
     <nav
       aria-label="Main navigation"
-      className="shrink-0 border-t border-charcoal/10 bg-white/95 backdrop-blur"
+      className="shrink-0 border-t border-charcoal/10 bg-surface/95 backdrop-blur"
       style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
     >
       <div className="flex">
