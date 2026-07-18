@@ -8,6 +8,52 @@ Oxylabs (ingest) → Kimi (reason) → Daytona (execute) → Nosana + ai& (compu
 ```
 Prize judging weighs **Sponsor Integration = coordination of Daytona + Kimi AI + Nosana**, plus Completeness (ship an MVP), Innovation, and Problem Solving. Demo is a **2-minute hard limit** and must show working code running inside the integrated stack.
 
+---
+
+## What we built: jorkmate
+
+**Hinge, but for jobs.** You swipe right on a real job posting and an AI agent applies for you with your details prefilled. Swipe left to skip.
+
+### The 30-second pitch
+1. You set up a profile once (or load a demo one). A resume gets read into structured data.
+2. You get a deck of job cards, each with a **compatibility score** and a one-line "why you match".
+3. **Swipe right** and an agent spins up a real cloud browser, walks the job's application form, fills it with your details, and submits. You keep swiping while it works.
+4. The **Applications** tab shows each agent's live progress.
+
+### How each sponsor is used (one line each)
+| Sponsor | Role in jorkmate | Where |
+|---|---|---|
+| **Oxylabs** | Scrapes live job postings from real Workday career sites (through a residential proxy) to fill the deck | `src/scrape.mjs` |
+| **Kimi** | Reads the resume into structured fields, then writes the answers for each application form | `src/formfill.mjs` |
+| **Nosana** | Runs the open-model that scores each job's fit and writes the "why you match" blurb | `src/match.mjs` |
+| **Daytona** | Spins up a sandboxed cloud browser that actually fills and submits the Workday application | `src/apply.mjs` |
+| **ai&** | Backs every LLM call so nothing stalls if one provider hiccups | `src/sponsors.mjs` |
+
+### The loop, in order
+```
+Oxylabs → deck of real jobs
+   ↓
+Nosana → score + match blurb on each card      (swipe right on one)
+   ↓
+Kimi → resume → form answers for that job
+   ↓
+Daytona → cloud browser fills + submits the application, streaming progress back
+```
+All five run behind one small Node server (`src/server.mjs`) that the phone app talks to.
+
+### Run it for the demo
+```bash
+npm install
+cp .env.example .env          # fill in sponsor keys
+npm run serve                 # backend + app on http://localhost:3000
+cd jorkmate && npm install && npm run build   # build the phone UI (served by the backend)
+```
+Open `http://localhost:3000` on a phone (or the iOS Simulator) → **Try a demo profile** → swipe.
+
+**Break-glass fallback:** `MOCK_MODE=1 npm run serve` runs the whole flow with canned data (no live sponsor calls) so the demo never depends on the venue network.
+
+---
+
 ## Setup
 ```bash
 git clone https://github.com/C-lb/daytonahacksprint
