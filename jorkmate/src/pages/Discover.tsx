@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useTransform } from 'framer-motion'
-import { Check, RotateCcw, X } from 'lucide-react'
+import { ArrowLeft, ArrowRight, RotateCcw } from 'lucide-react'
 import { useApp } from '../state/AppContext'
 import { JOBS } from '../data/jobs'
 import { matchScore, sortedDeck } from '../utils/matching'
@@ -171,27 +171,17 @@ export function Discover() {
         </AnimatePresence>
       </div>
 
-      <div className="flex items-center justify-center gap-8 py-4">
-        <button
-          type="button"
-          aria-label="Skip this job"
-          disabled={!top}
-          onClick={() => swipe('left')}
-          className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-charcoal/15 bg-surface text-charcoal raised transition-transform hover:border-charcoal/40 active:scale-90 disabled:opacity-40"
-        >
-          <X size={30} aria-hidden="true" />
-        </button>
-        <button
-          type="button"
-          aria-label="Apply to this job"
-          disabled={!top}
-          onClick={() => swipe('right')}
-          className="flex h-16 w-16 items-center justify-center rounded-full bg-coral text-white raised transition-transform hover:bg-coral-deep active:scale-90 disabled:opacity-40"
-        >
-          <Check size={30} aria-hidden="true" />
-        </button>
-      </div>
-      <p className="pb-2 text-center text-[10px] text-charcoal-soft">
+      {top && (
+        <div className="flex items-center justify-center gap-6 pt-3 text-xs text-charcoal-soft">
+          <span className="flex items-center gap-1.5">
+            <ArrowLeft size={13} aria-hidden="true" /> Swipe to skip
+          </span>
+          <span className="flex items-center gap-1.5">
+            Swipe to apply <ArrowRight size={13} aria-hidden="true" />
+          </span>
+        </div>
+      )}
+      <p className="pb-2 pt-2 text-center text-[10px] text-charcoal-soft">
         {live.enabled && live.jobs.length
           ? 'Live listings from the team server · applications run in a Daytona sandbox.'
           : 'Fictional listings and simulated submissions for demo purposes.'}
