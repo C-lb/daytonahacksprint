@@ -5,21 +5,17 @@
 //   e.g. node src/agent.mjs "What is Daytona's sandbox cold-start latency?" https://www.daytona.io/docs/en/
 //
 // This is a TEMPLATE. Swap the question/URL logic for whatever you actually build.
-import { aiand, kimi, oxylabsGet, daytona, nosana, env } from './sponsors.mjs';
+import { reason, reasonSource, oxylabsGet, daytona, nosana, env } from './sponsors.mjs';
 
 const question = process.argv[2] || 'Summarize the Daytona HackSprint sponsor stack.';
 const url = process.argv[3]; // optional page to scrape for grounding
-
-// Pick whichever LLM is configured: prefer a direct Kimi key (judging), fall back to ai&.
-const llm = env.KIMI_API_KEY ? kimi : aiand;
-const llmName = env.KIMI_API_KEY ? 'Kimi (direct)' : 'ai&';
 
 const htmlToText = (h) =>
   h.replace(/<script[\s\S]*?<\/script>/gi, '').replace(/<style[\s\S]*?<\/style>/gi, '')
    .replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 6000);
 
 async function main() {
-  console.log(`\n❓ ${question}\n🧠 reasoning via ${llmName}\n`);
+  console.log(`\n❓ ${question}\n🧠 reasoning via ${reasonSource()}\n`);
 
   // 1) INGEST — grab live context through Oxylabs (skip if no URL given).
   let context = '';
@@ -36,8 +32,7 @@ async function main() {
     { role: 'system', content: 'You are a research agent. Answer concisely. If a calculation or data check would help, put runnable Python inside a single ```python fenced block; otherwise omit code.' },
     { role: 'user', content: context ? `Context:\n${context}\n\nQuestion: ${question}` : question },
   ];
-  const reply = await llm(messages, { max_tokens: 800 });
-  const answer = reply.content || reply.reasoning || '(no content)';
+  const answer = (await reason(messages, { max_tokens: 4096 })) || '(no content)';
   console.log('💬 answer:\n' + answer + '\n');
 
   // 3) EXECUTE — if the model produced code, run it safely in a Daytona sandbox.
