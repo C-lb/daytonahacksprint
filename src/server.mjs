@@ -28,6 +28,14 @@ export function setStatus(appId, status) {
 app.get('/api/profile', (_q, res) => res.json(load('profile')));
 app.post('/api/profile', (req, res) => { save('profile', { ...load('profile'), ...req.body }); res.json(load('profile')); });
 
+app.post('/api/profile/resume', async (req, res) => {
+  const { parseResume } = await import('./formfill.mjs');
+  const parsed = await parseResume(req.body.text || '');
+  const profile = { ...load('profile'), ...parsed, resumeText: req.body.text || '' };
+  save('profile', profile);
+  res.json(profile);
+});
+
 app.get('/api/deck', (_q, res) => {
   const p = load('profile');
   const applied = new Set(load('applications').map((a) => a.jobId));
