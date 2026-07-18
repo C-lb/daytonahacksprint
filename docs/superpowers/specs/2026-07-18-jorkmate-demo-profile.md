@@ -56,15 +56,17 @@ Targeting SWE, quant, and AI-research internships, **Aug–Dec 2026**.
 
 ### Onboarding industry picks (drives deck filter)
 
-`Software & Developer Tools` · `Fintech` · `E-commerce`
+`Software & Developer Tools` · `Artificial Intelligence / ML` · `Quantitative Finance`
 
-> **Note:** these three are the only `industry` values present in the live scraped job data
-> (`data/jobs.json`) — confirmed by inspecting the dataset. Earlier drafts of this doc picked
-> `Artificial Intelligence / ML` and `Quantitative Finance`, which don't exist in that data and
-> would have emptied the live deck filter. Same constraint applies to
-> `jorkmate/src/data/personas.ts` → `preferences.industries`, which uses a **separate**,
-> frontend-only enum (`Software engineering`, `Data science and AI`, `Quantitative research`,
-> etc. — see `INDUSTRIES` in `Onboarding.tsx`). Don't cross the two lists.
+> **Note:** these must exactly match the `industry` values present in the live scraped job data
+> (`data/jobs.json`) — verify against that dataset before changing either side, since a
+> mismatch silently empties the live deck filter. (The seed data was re-tagged to these three
+> values specifically to match Nadine's AI/quant focus — check `data/jobs.json` directly if in
+> doubt, don't assume from this doc.) Separately, `jorkmate/src/data/personas.ts` →
+> `preferences.industries` uses its **own**, frontend-only enum (`Software engineering`,
+> `Data science and AI`, `Quantitative research`, etc. — see `INDUSTRIES` in `Onboarding.tsx`)
+> for the seeded demo deck (`jorkmate/src/data/jobs.ts`). The two lists are unrelated — don't
+> cross them.
 
 ## `data/profile.json` (source of truth)
 
@@ -97,7 +99,7 @@ Targeting SWE, quant, and AI-research internships, **Aug–Dec 2026**.
     "spoken": ["English", "Mandarin", "Korean"],
     "programming": ["Python", "C++", "JavaScript", "TypeScript", "Swift"]
   },
-  "industries": ["Software & Developer Tools", "Fintech", "E-commerce"],
+  "industries": ["Software & Developer Tools", "Artificial Intelligence / ML", "Quantitative Finance"],
   "summary": "AI-focused NUS Computer Science undergraduate (First Class Honours, 4.99/5.00 GPA), Class of 2027, building LLM-agent products. Flagship project: an AI-agent prototype matching patients to specialists from symptom descriptions (Python/FastAPI + React, LLM-based triage). Also shipped production systems ranging from a Vue3/FastAPI ops portal to an Apple-recognized iOS app.",
   "education": [
     {

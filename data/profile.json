@@ -26,7 +26,7 @@
     "spoken": ["English", "Mandarin", "Korean"],
     "programming": ["Python", "C++", "JavaScript", "TypeScript", "Swift"]
   },
-  "industries": ["Software & Developer Tools", "Fintech", "E-commerce"],
+  "industries": ["Software & Developer Tools", "Artificial Intelligence / ML", "Quantitative Finance"],
   "summary": "AI-focused NUS Computer Science undergraduate (First Class Honours, 4.99/5.00 GPA), Class of 2027, building LLM-agent products. Flagship project: an AI-agent prototype matching patients to specialists from symptom descriptions (Python/FastAPI + React, LLM-based triage). Also shipped production systems ranging from a Vue3/FastAPI ops portal to an Apple-recognized iOS app.",
   "education": [
     {
