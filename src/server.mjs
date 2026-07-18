@@ -70,6 +70,14 @@ const runApply = (application) =>
   (process.env.MOCK_MODE === '1' || !realRunApply) ? mockRunApply(application) : realRunApply(application);
 export const setRunApply = (fn) => { realRunApply = fn; };
 
+app.post('/api/scrape', async (_q, res) => {
+  const { scrapeAll } = await import('./scrape.mjs');
+  const { scoreAll } = await import('./match.mjs');
+  const added = await scrapeAll();
+  scoreAll(); // fire-and-forget: new cards get scores as they compute
+  res.json({ added });
+});
+
 app.get('/api/apply/:id/stream', (req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache', Connection: 'keep-alive' });
   for (const ev of buffers.get(req.params.id) ?? []) res.write(`data: ${JSON.stringify(ev)}\n\n`); // replay
