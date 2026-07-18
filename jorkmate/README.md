@@ -58,7 +58,7 @@ welcome screen. (Or clear site data in devtools.)
 
 ## 60-second presentation flow
 
-1. Open Jorkmate → **Try a demo profile** → select **Maya Tan** (the canonical demo
+1. Open Jorkmate → **Try a demo profile** → select **Nadine Park** (the canonical demo
    candidate from `docs/superpowers/specs/2026-07-18-jorkmate-demo-profile.md`).
 2. Scroll one job card to show the full listing lives on the card.
 3. Swipe right on a suitable role → **"Application agent spawned"** toast.

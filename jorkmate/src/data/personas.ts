@@ -182,105 +182,125 @@ const ari: UserProfile = {
 }
 
 /**
- * Maya Tan mirrors docs/superpowers/specs/2026-07-18-jorkmate-demo-profile.md —
+ * Nadine Park mirrors docs/superpowers/specs/2026-07-18-jorkmate-demo-profile.md —
  * the team's canonical demo candidate (source of truth for data/profile.json).
  * Values map 1:1 onto that contract; only the shape is this frontend's.
  */
-const maya: UserProfile = {
+const nadine: UserProfile = {
   ...emptyProfile(),
-  id: 'demo-maya-tan',
+  id: 'demo-nadine-park',
   personal: {
-    fullName: 'Maya Tan',
-    email: 'maya.tan.dev@gmail.com',
-    phone: '+65 8123 4567',
+    fullName: 'Nadine Park',
+    email: 'nadine.aibuilder@gmail.com',
+    phone: '+65 8800 1983',
     city: 'Singapore',
     country: 'Singapore',
     pronouns: 'she/her',
-    earliestStart: '1 month from offer',
-    noticePeriod: '1 month',
+    earliestStart: 'Aug 2026',
+    noticePeriod: 'None — student',
     willingToRelocate: true,
     willingToTravel: true,
   },
   preferences: {
-    // canonical picks: Software & Developer Tools · Fintech · E-commerce
-    industries: ['Software engineering', 'Fintech operations'],
-    roles: ['Senior Software Engineer', 'Full-stack Engineer', 'Product Engineer'],
-    locations: ['Singapore'],
-    minCompensation: '120000',
+    // valid picks only — must match the fixed INDUSTRIES enum in Onboarding.tsx / jobs.ts categories
+    industries: ['Software engineering', 'Data science and AI', 'Quantitative research'],
+    roles: ['Software Engineer', 'AI Research Engineer', 'Quantitative Researcher'],
+    locations: ['Singapore', 'Hong Kong'],
+    minCompensation: '4500',
     currency: 'SGD',
-    workModes: ['Hybrid', 'Remote'],
-    employmentTypes: ['Full-time'],
-    seniority: ['Senior', 'Mid-level'],
+    workModes: ['Hybrid', 'On-site'],
+    employmentTypes: ['Internship'],
+    seniority: ['Internship'],
   },
   experience: [
     {
-      id: 'maya-x1',
-      title: 'Senior Software Engineer',
-      company: 'Grab',
+      id: 'nadine-x1',
+      title: 'Tech Lead',
+      company: 'Randamu Pte. Ltd.',
       location: 'Singapore',
       startMonth: 'Jan',
-      startYear: '2023',
+      startYear: '2025',
       endMonth: '',
       endYear: '',
       current: true,
       responsibilities:
-        'Led the checkout reliability workstream for GrabPay and own on-call playbooks for the payments team.',
+        'Architect a Shopify-based digital marketplace for Singapore’s ACG community and organise creator events bridging the platform with physical community engagement.',
       achievements:
-        'Cut p99 payment latency 38%; shipped an idempotent refunds service (Go + PostgreSQL) handling 2M+ txns/day; mentored 4 engineers and halved payment incident MTTR.',
+        'Platform growth helped secure Enterprise SG funding under Ngee Ann Polytechnic’s AGILE incubation programme.',
     },
     {
-      id: 'maya-x2',
-      title: 'Software Engineer',
-      company: 'Shopee',
+      id: 'nadine-x2',
+      title: 'Research Engineer, Apple Vision Pro (Graded Motor Imagery)',
+      company: 'KK Hospital / SIT / NUS College of Design & Engineering',
       location: 'Singapore',
-      startMonth: 'Jun',
-      startYear: '2020',
-      endMonth: 'Dec',
-      endYear: '2022',
+      startMonth: 'Aug',
+      startYear: '2025',
+      endMonth: '',
+      endYear: '',
+      current: true,
+      responsibilities:
+        'Build a laterality-training module in RealityKit/ARKit for a Vision Pro therapy app, translating clinical requirements from SIT professors and KK Hospital therapists into spatial-computing interactions.',
+      achievements:
+        'First spatial-computing prototype in the collaboration to reach therapist-led user testing.',
+    },
+    {
+      id: 'nadine-x3',
+      title: 'Fullstack Web Developer',
+      company: 'Oxley Grading Pte. Ltd.',
+      location: 'Singapore',
+      startMonth: 'Apr',
+      startYear: '2025',
+      endMonth: 'Jan',
+      endYear: '2026',
       current: false,
       responsibilities:
-        'Built seller-analytics dashboards (React, Node, ClickHouse) used by 300k+ sellers.',
+        'Led a 3-person team rebuilding a failing Excel-based operations system into a Vue3/FastAPI/MySQL portal for 4–5K customers.',
       achievements:
-        'Cut dashboard load time from 6s to under 1s with a query and caching redesign; drove TypeScript and CI test-gate adoption across the seller-tools squad.',
+        'Shipped in 2 months; onboarded hundreds of customers and now powers 80% of business operations, including HitPay-based payment processing.',
     },
     {
-      id: 'maya-x3',
-      title: 'Software Engineer Intern',
-      company: 'GovTech Singapore',
-      location: 'Singapore',
+      id: 'nadine-x4',
+      title: 'iOS Engineer',
+      company: 'NOSSAFLEX',
+      location: 'Melbourne, AU (remote)',
       startMonth: 'May',
-      startYear: '2019',
-      endMonth: 'Nov',
-      endYear: '2019',
+      startYear: '2020',
+      endMonth: 'Aug',
+      endYear: '2025',
       current: false,
-      responsibilities: 'Prototyped an accessibility linter for the internal design system.',
-      achievements: 'Linter was adopted into the internal design system.',
+      responsibilities:
+        'Led iOS frontend development as an early SwiftUI adopter for a film-photography app, architecting an 80–90% SwiftUI codebase (MVVM, Core Data/Firebase, AVFoundation) with a team spread across three timezones.',
+      achievements:
+        'Grew the app to thousands of active users; accepted into Apple Entrepreneur Camp 2023 and shortlisted for Apple Design Awards 2024.',
     },
   ],
   education: [
     {
-      id: 'maya-e1',
+      id: 'nadine-e1',
       institution: 'National University of Singapore',
       degree: 'B.Comp (Hons)',
       field: 'Computer Science',
-      startYear: '2015',
-      gradYear: '2019',
-      grade: 'First Class Honours',
-      activities: '',
+      startYear: '2023',
+      gradYear: '2027',
+      grade: "GPA 4.99/5.0 · First Class Honours (on track) · Dean's List (all eligible years)",
+      activities: 'NUS Hackers',
     },
   ],
-  certifications: [],
-  skills: ['TypeScript', 'JavaScript', 'Python', 'Go', 'SQL', 'React', 'Node.js'],
-  tools: ['Next.js', 'Tailwind CSS', 'Express', 'PostgreSQL', 'Redis', 'AWS', 'Docker', 'Kubernetes'],
-  languages: ['English', 'Mandarin'],
+  certifications: [
+    { id: 'nadine-c1', name: 'Apple WWDC Swift Student Challenge — 2x winner', issuer: 'Apple Inc.', year: '2022' },
+    { id: 'nadine-c2', name: 'Daytona HackSprint 2026', issuer: 'Daytona', year: '2026' },
+  ],
+  skills: ['Python', 'C++', 'JavaScript', 'TypeScript', 'React', 'Vue.js', 'SQL', 'Swift'],
+  tools: ['PyTorch', 'Node.js', 'Flask', 'Firebase', 'MongoDB', 'AWS', 'React Native', 'Figma'],
+  languages: ['English', 'Mandarin', 'Korean'],
   links: {
-    linkedin: 'https://linkedin.com/in/mayatan-dev',
-    github: 'https://github.com/mayatan',
-    portfolio: 'https://mayatan.dev',
+    linkedin: 'https://linkedin.com/in/nadinep',
+    github: '',
+    portfolio: '',
     website: '',
     other: '',
   },
-  resume: { fileName: 'resume-maya-tan.pdf', sizeKb: 96, uploadedAt: 1750000000000 },
+  resume: { fileName: 'resume-nadine-park.pdf', sizeKb: 112, uploadedAt: 1750000000000 },
   eligibility: {
     workAuthorization: {
       Singapore: true, // Singapore Citizen — no sponsorship needed (critical for Workday screening)
@@ -294,10 +314,10 @@ const maya: UserProfile = {
       'United Kingdom': true,
       'United States': true,
     },
-    desiredCompensation: '120,000–140,000',
+    desiredCompensation: '4,500–5,500',
     currency: 'SGD',
-    earliestStart: '1 month from offer',
-    noticePeriod: '1 month',
+    earliestStart: 'Aug 2026',
+    noticePeriod: 'None — student',
     willingAssessments: true,
     backgroundCheckConsent: 'yes',
     preferredContact: 'Email',
@@ -308,6 +328,12 @@ const maya: UserProfile = {
     interviewNotes: '',
     workplaceAccommodations: 'prefer-not-to-say',
     workplaceNotes: '',
+  },
+  demographics: {
+    gender: 'Female',
+    ethnicity: 'Korean',
+    veteranStatus: 'Prefer not to say',
+    disabilityStatus: 'Prefer not to say',
   },
 }
 
@@ -421,11 +447,11 @@ const daniel: UserProfile = {
 
 export const PERSONAS: Persona[] = [
   {
-    id: 'demo-maya-tan',
-    tagline: 'Senior full-stack engineer',
-    blurb: 'Five years shipping fintech and developer tools in Singapore (Grab, Shopee). The canonical Jorkmate demo candidate.',
-    accent: ['#635bff', '#e5573f'],
-    profile: maya,
+    id: 'demo-nadine-park',
+    tagline: 'AI-focused CS undergrad',
+    blurb: 'NUS Computing (IMDA SG:Digital Scholar) shipping LLM-agent products and production web/iOS systems. The canonical Jorkmate demo candidate, seeking Aug–Dec 2026 internships.',
+    accent: ['#8b5cf6', '#22d3ee'],
+    profile: nadine,
   },
   {
     id: 'persona-ari',

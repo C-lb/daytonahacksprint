@@ -11,24 +11,23 @@
     "phone": "+65 8800 1983",
     "location": "Singapore",
     "links": {
-      "linkedin": "TBD → interview",
-      "github": "TBD → interview",
-      "portfolio": "TBD → interview"
+      "linkedin": "https://linkedin.com/in/nadinep",
+      "github": "",
+      "portfolio": ""
     }
   },
   "demographics": {
     "citizenship": "Singapore Citizen",
     "nationality": "Singaporean",
     "ethnicity": "Korean",
-    "gender": "TBD → interview",
-    "date_of_birth": "TBD → interview (only if a form requires it)"
+    "gender": "Female"
   },
   "languages": {
     "spoken": ["English", "Mandarin", "Korean"],
-    "programming": ["Python", "C++", "JavaScript"]
+    "programming": ["Python", "C++", "JavaScript", "TypeScript", "Swift"]
   },
-  "industries": ["Software & Developer Tools", "Artificial Intelligence / ML", "Quantitative Finance"],
-  "summary": "DRAFT → interview: NUS Computer Science undergraduate (First Class Honours, 4.99/5.00 GPA), Class of 2027, building AI-driven software. Confirm focus, flagship work, and voice in the interview.",
+  "industries": ["Software & Developer Tools", "Fintech", "E-commerce"],
+  "summary": "AI-focused NUS Computer Science undergraduate (First Class Honours, 4.99/5.00 GPA), Class of 2027, building LLM-agent products. Flagship project: an AI-agent prototype matching patients to specialists from symptom descriptions (Python/FastAPI + React, LLM-based triage). Also shipped production systems ranging from a Vue3/FastAPI ops portal to an Apple-recognized iOS app.",
   "education": [
     {
       "school": "National University of Singapore",
@@ -38,31 +37,88 @@
       "expected_graduation": "2027-05-31",
       "gpa": "4.99",
       "gpa_scale": "5.0",
-      "notes": "First Class Honours (on track)"
+      "notes": "First Class Honours (on track) · Dean's List (all eligible years) · NUS Hackers"
     }
   ],
   "skills": {
-    "programming": ["Python", "C++", "JavaScript"],
-    "frameworks_tools": ["TBD → interview"],
-    "focus_areas": ["TBD → interview (AI/ML? confirm)"]
+    "programming": ["Python", "C++", "JavaScript", "TypeScript", "Swift"],
+    "frameworks_tools": ["React", "Vue.js", "Node.js", "Flask", "PyTorch", "React Native", "Firebase", "MongoDB", "AWS", "Figma"],
+    "focus_areas": ["LLMs / AI agents"]
   },
-  "work_history": [],
-  "projects": [],
-  "awards": [],
-  "extracurriculars": [],
+  "work_history": [
+    {
+      "company": "Randamu Pte. Ltd.",
+      "title": "Tech Lead",
+      "location": "Singapore",
+      "start": "2025-01",
+      "end": "present",
+      "highlights": [
+        "Architected a Shopify-based digital marketplace for Singapore's ACG community.",
+        "Organised creator events bridging the digital marketplace with physical community engagement.",
+        "Platform growth helped secure Enterprise SG funding under Ngee Ann Polytechnic's AGILE incubation programme."
+      ]
+    },
+    {
+      "company": "KK Hospital / SIT / NUS College of Design & Engineering",
+      "title": "Research Engineer, Apple Vision Pro (Graded Motor Imagery)",
+      "location": "Singapore",
+      "start": "2025-08",
+      "end": "present",
+      "highlights": [
+        "Built a laterality-training module in RealityKit/ARKit for a Vision Pro therapy app.",
+        "Translated clinical requirements from SIT professors and KK Hospital therapists into spatial-computing interactions."
+      ]
+    },
+    {
+      "company": "Oxley Grading Pte. Ltd.",
+      "title": "Fullstack Web Developer",
+      "location": "Singapore",
+      "start": "2025-04",
+      "end": "2026-01",
+      "highlights": [
+        "Led a 3-person team rebuilding a failing Excel-based operations system into a Vue3/FastAPI/MySQL portal for 4-5K customers.",
+        "Shipped in 2 months; onboarded hundreds of customers, now powers 80% of business operations including HitPay-based payments."
+      ]
+    },
+    {
+      "company": "NOSSAFLEX",
+      "title": "iOS Engineer",
+      "location": "Melbourne, AU (remote)",
+      "start": "2020-05",
+      "end": "2025-08",
+      "highlights": [
+        "Led iOS frontend development as an early SwiftUI adopter for a film-photography app, growing it to thousands of active users.",
+        "Accepted into Apple Entrepreneur Camp 2023; shortlisted for Apple Design Awards 2024."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "AI health-match prototype",
+      "description": "AI-agent tool matching patients to specialists from symptom descriptions using LLM-based triage (Python/FastAPI + React).",
+      "outcome": "Matched 200+ simulated patient cases to the right specialist in testing."
+    }
+  ],
+  "awards": [
+    "Dean's List, National University of Singapore (all eligible years)",
+    "Apple WWDC Swift Student Challenge — 2x winner (2021, 2022)",
+    "Daytona HackSprint 2026"
+  ],
+  "extracurriculars": ["NUS Hackers"],
   "application_answers": {
     "work_authorization": "Authorized to work in Singapore (Singapore Citizen)",
     "requires_sponsorship": false,
     "nationality": "Singaporean",
     "ethnicity": "Korean",
-    "gender": "TBD → interview",
+    "gender": "Female",
     "veteran_status": "Prefer not to disclose",
     "disability_status": "Prefer not to disclose",
-    "internship_availability": "TBD → interview",
-    "earliest_start_date": "TBD → interview",
-    "expected_salary": "TBD → interview (intern stipend; often left blank)",
-    "how_did_you_hear": "TBD → interview",
-    "cover_blurb": "DRAFT → interview"
+    "internship_availability": "Aug 2026 – Dec 2026",
+    "earliest_start_date": "Aug 2026",
+    "expected_salary": "SGD 4,500–5,500 per month",
+    "salary_negotiable": true,
+    "how_did_you_hear": "Company website",
+    "cover_blurb": "AI-focused CS undergrad at NUS shipping LLM-agent products alongside production web and iOS systems. I move fast from prototype to production and care about reliability and DX. Outside school and work: cello, ice skating, poker, and baking."
   },
   "resume_file": "data/resume-nadine-park.pdf"
 }

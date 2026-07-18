@@ -6,9 +6,6 @@ Single source of truth for the seeded demo candidate. Ships in the repo so the d
 straight past onboarding with a profile already "Kimi-parsed" and loaded. The JSON block at the
 bottom is lifted verbatim into `data/profile.json`.
 
-> **Status:** core identity locked (below); background fields marked **`TBD → interview`** are
-> pending the interview at the end of this doc. Fill them from the user's answers next.
-
 ## Why two layers
 
 1. **Résumé layer** — `summary`, `education[]`, `work_history[]`, `projects[]`, `skills` —
@@ -21,15 +18,17 @@ bottom is lifted verbatim into `data/profile.json`.
 ## The candidate
 
 **Nadine Park** — Singapore-based NUS Computer Science undergraduate (Class of 2027),
-First Class Honours track, **4.99 / 5.00 GPA**. Singapore citizen → **no visa sponsorship
-needed**. Now a clean fit for real **internship** postings (e.g., the Citadel *International
-Equities – Intern (Asia)* form scanned in piece 2): student, GPA, graduation-date, and
-availability fields all line up.
+First Class Honours track, **4.99 / 5.00 GPA**, IMDA SG:Digital Scholar. Singapore citizen →
+**no visa sponsorship needed**. AI-focused ("aibuilder"): flagship project is an LLM-agent
+prototype matching patients to specialists from symptom descriptions. Also carries real
+production experience (Vue3/FastAPI ops portal serving 4-5K customers, an Apple-recognized
+iOS app, a Vision Pro healthcare research collab with KK Hospital/SIT/NUS) that gives the
+apply pipeline substantive, varied work history to pull from — not just a one-line intern
+resume.
 
-Email handle `nadine.aibuilder@gmail.com` suggests an AI focus — **confirm specialization +
-flagship projects in the interview.**
+Targeting SWE, quant, and AI-research internships, **Aug–Dec 2026**.
 
-### Locked facts (from user)
+### Locked facts
 
 | Field | Value |
 |---|---|
@@ -41,37 +40,31 @@ flagship projects in the interview.**
 | Duration | Aug 2023 – 31 May 2027 (expected) |
 | GPA | 4.99 / 5.00 — First Class Honours |
 | Spoken languages | English, Mandarin, Korean |
-| Programming languages | Python, C++, JavaScript |
+| Programming languages | Python, C++, JavaScript, TypeScript, Swift |
 | Citizenship | Singapore Citizen |
 | Nationality | Singaporean |
 | Ethnicity | Korean |
+| Gender | Female (she/her) |
 | Requires sponsorship | No |
+| LinkedIn | linkedin.com/nadinep |
+| Internship availability | Aug 2026 – Dec 2026 |
+| Target roles | Software Engineer, AI Research Engineer, Quantitative Researcher |
+| AI focus | LLMs / AI agents |
+| Extracurricular | NUS Hackers |
+| Awards | Dean's List (all eligible years) · WWDC Swift Student Challenge 2021 & 2022 · Daytona HackSprint 2026 |
+| Hobbies (cover-letter color, not a form field) | Cello, ice skating, poker, baking |
 
-### Onboarding industry picks (drives deck filter) — DRAFT, confirm in interview
+### Onboarding industry picks (drives deck filter)
 
-`Software & Developer Tools` · `Artificial Intelligence / ML` · `Quantitative Finance`
+`Software & Developer Tools` · `Fintech` · `E-commerce`
 
-## What else to add (recommended fields)
-
-Grouped by how much they help the demo / apply flow:
-
-**High value (ATS forms ask these):**
-- Online links — **LinkedIn, GitHub, portfolio/website** (Citadel form has an "optional links" field)
-- **Internship / work experience** history (even one prior internship)
-- **Availability window** for the internship (which months, e.g., Summer 2026)
-- **Gender** for EEO sections (or "prefer not to disclose")
-- Residential address in Singapore (some ATS require; can keep generic)
-
-**Strong for match score + résumé:**
-- **Flagship projects** (esp. AI — matches the handle)
-- **Hackathon / competition** results (this is literally a hackathon — a win reads great)
-- **Awards / scholarships** (Dean's List, merit/ASEAN scholarship, olympiads)
-- **Frameworks & tools** beyond languages (React, PyTorch, TensorFlow, Node, cloud, etc.)
-- **Relevant coursework / specialization track** (AI systems, ML, algorithms)
-- **Extracurriculars / leadership** (NUS Hackers, teaching assistant, clubs)
-
-**Optional / nice-to-have:**
-- Certifications, publications/research, references, expected stipend, date of birth.
+> **Note:** these three are the only `industry` values present in the live scraped job data
+> (`data/jobs.json`) — confirmed by inspecting the dataset. Earlier drafts of this doc picked
+> `Artificial Intelligence / ML` and `Quantitative Finance`, which don't exist in that data and
+> would have emptied the live deck filter. Same constraint applies to
+> `jorkmate/src/data/personas.ts` → `preferences.industries`, which uses a **separate**,
+> frontend-only enum (`Software engineering`, `Data science and AI`, `Quantitative research`,
+> etc. — see `INDUSTRIES` in `Onboarding.tsx`). Don't cross the two lists.
 
 ## `data/profile.json` (source of truth)
 
@@ -89,24 +82,23 @@ Grouped by how much they help the demo / apply flow:
     "phone": "+65 8800 1983",
     "location": "Singapore",
     "links": {
-      "linkedin": "TBD → interview",
-      "github": "TBD → interview",
-      "portfolio": "TBD → interview"
+      "linkedin": "https://linkedin.com/in/nadinep",
+      "github": "",
+      "portfolio": ""
     }
   },
   "demographics": {
     "citizenship": "Singapore Citizen",
     "nationality": "Singaporean",
     "ethnicity": "Korean",
-    "gender": "TBD → interview",
-    "date_of_birth": "TBD → interview (only if a form requires it)"
+    "gender": "Female"
   },
   "languages": {
     "spoken": ["English", "Mandarin", "Korean"],
-    "programming": ["Python", "C++", "JavaScript"]
+    "programming": ["Python", "C++", "JavaScript", "TypeScript", "Swift"]
   },
-  "industries": ["Software & Developer Tools", "Artificial Intelligence / ML", "Quantitative Finance"],
-  "summary": "DRAFT → interview: NUS Computer Science undergraduate (First Class Honours, 4.99/5.00 GPA), Class of 2027, building AI-driven software. Confirm focus, flagship work, and voice in the interview.",
+  "industries": ["Software & Developer Tools", "Fintech", "E-commerce"],
+  "summary": "AI-focused NUS Computer Science undergraduate (First Class Honours, 4.99/5.00 GPA), Class of 2027, building LLM-agent products. Flagship project: an AI-agent prototype matching patients to specialists from symptom descriptions (Python/FastAPI + React, LLM-based triage). Also shipped production systems ranging from a Vue3/FastAPI ops portal to an Apple-recognized iOS app.",
   "education": [
     {
       "school": "National University of Singapore",
@@ -116,49 +108,102 @@ Grouped by how much they help the demo / apply flow:
       "expected_graduation": "2027-05-31",
       "gpa": "4.99",
       "gpa_scale": "5.0",
-      "notes": "First Class Honours (on track)"
+      "notes": "First Class Honours (on track) · Dean's List (all eligible years) · NUS Hackers"
     }
   ],
   "skills": {
-    "programming": ["Python", "C++", "JavaScript"],
-    "frameworks_tools": ["TBD → interview"],
-    "focus_areas": ["TBD → interview (AI/ML? confirm)"]
+    "programming": ["Python", "C++", "JavaScript", "TypeScript", "Swift"],
+    "frameworks_tools": ["React", "Vue.js", "Node.js", "Flask", "PyTorch", "React Native", "Firebase", "MongoDB", "AWS", "Figma"],
+    "focus_areas": ["LLMs / AI agents"]
   },
-  "work_history": [],
-  "projects": [],
-  "awards": [],
-  "extracurriculars": [],
+  "work_history": [
+    {
+      "company": "Randamu Pte. Ltd.",
+      "title": "Tech Lead",
+      "location": "Singapore",
+      "start": "2025-01",
+      "end": "present",
+      "highlights": [
+        "Architected a Shopify-based digital marketplace for Singapore's ACG community.",
+        "Organised creator events bridging the digital marketplace with physical community engagement.",
+        "Platform growth helped secure Enterprise SG funding under Ngee Ann Polytechnic's AGILE incubation programme."
+      ]
+    },
+    {
+      "company": "KK Hospital / SIT / NUS College of Design & Engineering",
+      "title": "Research Engineer, Apple Vision Pro (Graded Motor Imagery)",
+      "location": "Singapore",
+      "start": "2025-08",
+      "end": "present",
+      "highlights": [
+        "Built a laterality-training module in RealityKit/ARKit for a Vision Pro therapy app.",
+        "Translated clinical requirements from SIT professors and KK Hospital therapists into spatial-computing interactions."
+      ]
+    },
+    {
+      "company": "Oxley Grading Pte. Ltd.",
+      "title": "Fullstack Web Developer",
+      "location": "Singapore",
+      "start": "2025-04",
+      "end": "2026-01",
+      "highlights": [
+        "Led a 3-person team rebuilding a failing Excel-based operations system into a Vue3/FastAPI/MySQL portal for 4-5K customers.",
+        "Shipped in 2 months; onboarded hundreds of customers, now powers 80% of business operations including HitPay-based payments."
+      ]
+    },
+    {
+      "company": "NOSSAFLEX",
+      "title": "iOS Engineer",
+      "location": "Melbourne, AU (remote)",
+      "start": "2020-05",
+      "end": "2025-08",
+      "highlights": [
+        "Led iOS frontend development as an early SwiftUI adopter for a film-photography app, growing it to thousands of active users.",
+        "Accepted into Apple Entrepreneur Camp 2023; shortlisted for Apple Design Awards 2024."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "AI health-match prototype",
+      "description": "AI-agent tool matching patients to specialists from symptom descriptions using LLM-based triage (Python/FastAPI + React).",
+      "outcome": "Matched 200+ simulated patient cases to the right specialist in testing."
+    }
+  ],
+  "awards": [
+    "Dean's List, National University of Singapore (all eligible years)",
+    "Apple WWDC Swift Student Challenge — 2x winner (2021, 2022)",
+    "Daytona HackSprint 2026"
+  ],
+  "extracurriculars": ["NUS Hackers"],
   "application_answers": {
     "work_authorization": "Authorized to work in Singapore (Singapore Citizen)",
     "requires_sponsorship": false,
     "nationality": "Singaporean",
     "ethnicity": "Korean",
-    "gender": "TBD → interview",
+    "gender": "Female",
     "veteran_status": "Prefer not to disclose",
     "disability_status": "Prefer not to disclose",
-    "internship_availability": "TBD → interview",
-    "earliest_start_date": "TBD → interview",
-    "expected_salary": "TBD → interview (intern stipend; often left blank)",
-    "how_did_you_hear": "TBD → interview",
-    "cover_blurb": "DRAFT → interview"
+    "internship_availability": "Aug 2026 – Dec 2026",
+    "earliest_start_date": "Aug 2026",
+    "expected_salary": "SGD 4,500–5,500 per month",
+    "salary_negotiable": true,
+    "how_did_you_hear": "Company website",
+    "cover_blurb": "AI-focused CS undergrad at NUS shipping LLM-agent products alongside production web and iOS systems. I move fast from prototype to production and care about reliability and DX. Outside school and work: cello, ice skating, poker, and baking."
   },
   "resume_file": "data/resume-nadine-park.pdf"
 }
 ```
 
-## Pending interview (fill these next)
-
-`links` · `demographics.gender` · `skills.frameworks_tools` · `skills.focus_areas` ·
-`summary` · `work_history[]` · `projects[]` · `awards[]` · `extracurriculars[]` ·
-`application_answers.{gender, internship_availability, earliest_start_date, expected_salary, how_did_you_hear, cover_blurb}`
-
 ## Notes for downstream pieces
 
-- **Apply map needs re-sync:** `2026-07-18-jorkmate-apply-fields.md` still maps the old
-  `demo-maya-tan` (senior eng) → Citadel. Re-point it to `demo-nadine-park` after the
-  interview: education becomes NUS 2023–2027, GPA 4.99/5.0, student intern answers. Nadine
-  fits the intern form better than Maya did.
-- `resume_file` → `data/resume-nadine-park.pdf` still needs generating.
+- **Apply map re-synced:** `2026-07-18-jorkmate-apply-fields.md` now maps `demo-nadine-park`
+  (student intern) → Citadel, not the old `demo-maya-tan` (senior eng). Education fields
+  (NUS 2023–2027, GPA 4.99/5.0) line up with the form's student-intern fields directly.
+- `resume_file` → `data/resume-nadine-park.pdf` still needs generating (1-page PDF matching
+  the profile).
 - `requires_sponsorship: false` is deliberate — keeps the rehearsed apply off the top
   auto-reject.
-- Field **names** here are the contract. Change a key → update frontend + backend.
+- `github`/`portfolio` links are left blank rather than invented — fill in if/when real.
+- Field **names** here are the contract. Change a key → update frontend
+  (`jorkmate/src/data/personas.ts`) + backend (`data/profile.json`) together.
