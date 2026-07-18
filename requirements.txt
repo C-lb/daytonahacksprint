@@ -1,0 +1,3 @@
+requests>=2.31
+daytona            # runtime/action SDK (lazy-imported; needed for DaytonaRuntime.run)
+# openai>=1.0      # optional: swap in for streaming/typed tool-calling on ai&/Doubleword

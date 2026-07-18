@@ -1,0 +1,16 @@
+# secrets — never commit
+.env
+.env.*
+!.env.example
+
+# personal / local-only (keep your own scratch out of the shared repo)
+memory.md
+scratch/
+*.local
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.DS_Store
