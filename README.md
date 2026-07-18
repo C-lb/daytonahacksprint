@@ -52,6 +52,33 @@ Open `http://localhost:3000` on a phone (or the iOS Simulator) → **Try a demo 
 
 **Break-glass fallback:** `MOCK_MODE=1 npm run serve` runs the whole flow with canned data (no live sponsor calls) so the demo never depends on the venue network.
 
+### Status: what's fully live vs on fallback
+
+Everything degrades gracefully, so the demo never breaks. But some legs run on a fallback rather than their true sponsor path today:
+
+| Leg | Now | To make it fully live |
+|---|---|---|
+| **Kimi** | ai& gateway serves the reasoning (Kimi-via-ai& degenerates, auto-fails-over). Decided: no direct key | Would need a direct Moonshot `KIMI_API_KEY`. Not planned |
+| **Nosana** | Match scores via ai& fallback | Deploy a GPU LLM, set `NOSANA_INFERENCE_URL` + `NOSANA_INFERENCE_MODEL` (steps below) |
+| **Oxylabs** | Deck runs on pre-scraped seeds; live `/api/scrape` is Workday-bot-blocked on the proxy IPs | Use the Oxylabs Web Scraper API over 443 instead of the raw residential proxy |
+| **Daytona** | Sandbox spins up + runs the browser, but Workday resets the sandbox's un-proxied egress mid-flow | Route sandbox egress through a residential proxy, or target a Workday tenant that doesn't block. Keep `APPLY_SUBMIT` unset until a real target is rehearsed |
+
+None of these are code-blocked — the paths exist and switch on the moment the external piece is in place.
+
+#### Making Nosana live
+The code already speaks OpenAI-compatible chat, so it just needs a URL to an LLM server on a Nosana GPU:
+1. **Fund the wallet** — the Nosana dashboard wallet needs SOL (gas) + NOS (GPU time), or the job never schedules.
+2. **Deploy an OpenAI-compatible LLM** — via the dashboard or `@nosana/cli`, launch a GPU job from a template that serves the OpenAI API (vLLM or Ollama running a small model like Llama 3 8B or Qwen2.5 7B). Note the model name it serves.
+3. **Grab the service URL** — the running job exposes its own endpoint (e.g. `https://<id>.node.k8s.prd.nos.ci`); the OpenAI base is that URL, usually plus `/v1`.
+4. **Set `.env`:**
+   ```
+   NOSANA_INFERENCE_URL=https://<your-deployment>/v1
+   NOSANA_INFERENCE_MODEL=<model the server serves, e.g. llama3>
+   ```
+5. **Verify:** `node -e "import('./src/match.mjs').then(m=>m.scoreAll())"` should print `via: nosana` (not `fallback`) for each job. If it says `fallback`, the URL is unreachable or not OpenAI-shaped.
+
+Swagger for the current deploy flow: `https://dashboard.k8s.prd.nos.ci/api/swagger`.
+
 ---
 
 ## Setup
